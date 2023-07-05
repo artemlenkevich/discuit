@@ -1,14 +1,12 @@
 import {
-  UserCredential,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from 'firebase/auth';
-import { DocumentData, doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 import { auth, db } from '@/config';
-import { ApiResponse, toGenericError } from '@/lib';
 
 export interface RegisterUserOptions {
   email: string;
@@ -21,11 +19,7 @@ export interface LogInUserOptions {
   password: string;
 }
 
-export const registerUser = async ({
-  email,
-  password,
-  username,
-}: RegisterUserOptions): Promise<ApiResponse<UserCredential>> => {
+export const registerUser = async ({ email, password, username }: RegisterUserOptions) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -37,39 +31,38 @@ export const registerUser = async ({
       role: 'user',
     });
 
-    return { data: res, error: null };
+    return res;
   } catch (err) {
-    return { data: null, error: toGenericError(err) };
+    console.error(err);
+    throw err;
   }
 };
 
-export const loginUser = async ({
-  email,
-  password,
-}: LogInUserOptions): Promise<ApiResponse<UserCredential>> => {
+export const loginUser = async ({ email, password }: LogInUserOptions) => {
   try {
-    const res = await signInWithEmailAndPassword(auth, email, password);
-    return { data: res, error: null };
+    return await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    return { data: null, error: toGenericError(err) };
+    console.error(err);
+    throw err;
   }
 };
 
-export const getUserById = async (id: string): Promise<ApiResponse<DocumentData | undefined>> => {
+export const getUserById = async (id: string) => {
   try {
     const q = doc(db, 'users', id);
     const querySnapsot = await getDoc(q);
-    return { data: querySnapsot.data(), error: null };
+    return querySnapsot.data();
   } catch (err) {
-    return { data: null, error: toGenericError(err) };
+    console.error(err);
+    throw err;
   }
 };
 
-export const logOutUser = async (): Promise<ApiResponse<null>> => {
+export const logOutUser = async () => {
   try {
-    await signOut(auth);
-    return { data: null, error: null };
+    return await signOut(auth);
   } catch (err) {
-    return { data: null, error: toGenericError(err) };
+    console.error(err);
+    throw err;
   }
 };

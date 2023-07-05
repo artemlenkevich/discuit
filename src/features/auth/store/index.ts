@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { auth } from '@/config/firebase';
+import { NormalizedError, normalizeError } from '@/lib';
 import { RootState } from '@/store';
 
 import { LogInUserOptions, RegisterUserOptions, logOutUser, loginUser, registerUser } from '../api';
@@ -11,6 +12,7 @@ interface UserState {
   email: string | null;
   name: string | null;
   uid: string | null;
+  error: NormalizedError | null;
 }
 
 const initialState = {
@@ -18,6 +20,7 @@ const initialState = {
   email: null,
   name: null,
   uid: null,
+  error: null,
 } as UserState;
 
 export const authSlice = createSlice({
@@ -36,50 +39,68 @@ export const authSlice = createSlice({
       state.name = null;
       state.uid = null;
     },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
 export const registerUserThunk = createAsyncThunk(
   'auth/registerUserThunk',
-  async ({ email, password, username }: RegisterUserOptions) => {
-    await registerUser({ email, password, username });
+  async ({ email, password, username }: RegisterUserOptions, { dispatch }) => {
+    try {
+      await registerUser({ email, password, username });
+    } catch (e) {
+      dispatch(setError(normalizeError(e)));
+    }
   }
 );
 
 export const logInUserThunk = createAsyncThunk(
   'auth/logInUserThunk',
-  async ({ email, password }: LogInUserOptions) => {
-    await loginUser({ email, password });
+  async ({ email, password }: LogInUserOptions, { dispatch }) => {
+    try {
+      await loginUser({ email, password });
+    } catch (e) {
+      dispatch(setError(normalizeError(e)));
+    }
   }
 );
 
 export const subscribeAuthStateChanges = createAsyncThunk(
   'auth/subscribeAuthStateChanges',
   async (_, { dispatch }) => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const { email, displayName, uid } = user;
+    try {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const { email, displayName, uid } = user;
 
-        await dispatch(
-          setCurrentUser({
-            name: displayName,
-            email,
-            uid,
-          })
-        );
-      } else {
-        dispatch(unSetCurrentUser());
-      }
-    });
+          await dispatch(
+            setCurrentUser({
+              name: displayName,
+              email,
+              uid,
+            })
+          );
+        } else {
+          dispatch(unSetCurrentUser());
+        }
+      });
+    } catch (e) {
+      dispatch(setError(normalizeError(e)));
+    }
   }
 );
 
-export const logOutUserThunk = createAsyncThunk('auth/logOutUser', async () => {
-  const response = await logOutUser();
-  return response;
+export const logOutUserThunk = createAsyncThunk('auth/logOutUser', async (_, { dispatch }) => {
+  try {
+    await logOutUser();
+  } catch (e) {
+    dispatch(setError(normalizeError(e)));
+  }
 });
 
-export const { setCurrentUser, unSetCurrentUser } = authSlice.actions;
+export const { setCurrentUser, unSetCurrentUser, setError } = authSlice.actions;
 
 export const { reducer: authReducer } = authSlice;
 export const selectAuth = (state: RootState) => state.auth;

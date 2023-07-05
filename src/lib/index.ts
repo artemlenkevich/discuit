@@ -1,2 +1,2 @@
-export { toGenericError } from './error';
-export type { ApiResponse } from './error';
+export { normalizeError } from './api-error';
+export type { NormalizedError } from './api-error';
