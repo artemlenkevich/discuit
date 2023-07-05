@@ -1,18 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { Dispatch } from '@reduxjs/toolkit';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { auth } from '@/config/firebase';
 import { RootState } from '@/store';
 
-import {
-  LogInUserOptions,
-  RegisterUserOptions,
-  getUserById,
-  logOutUser,
-  loginUser,
-  registerUser,
-} from '../api';
+import { LogInUserOptions, RegisterUserOptions, logOutUser, loginUser, registerUser } from '../api';
 
 interface UserState {
   isAuthenticated: boolean;
@@ -61,14 +53,12 @@ export const logInUserThunk = createAsyncThunk(
   }
 );
 
-export function subscribeAuthStateChanges() {
-  return async (dispatch: Dispatch) => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+export const subscribeAuthStateChanges = createAsyncThunk(
+  'auth/subscribeAuthStateChanges',
+  async (_, { dispatch }) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         const { email, displayName, uid } = user;
-
-        const userDoc = await getUserById(uid);
-        console.log(userDoc);
 
         await dispatch(
           setCurrentUser({
@@ -81,9 +71,8 @@ export function subscribeAuthStateChanges() {
         dispatch(unSetCurrentUser());
       }
     });
-    return unsubscribe;
-  };
-}
+  }
+);
 
 export const logOutUserThunk = createAsyncThunk('auth/logOutUser', async () => {
   const response = await logOutUser();
