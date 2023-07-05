@@ -4,12 +4,15 @@ import { Provider } from 'react-redux';
 import { store } from '@/store';
 
 import App from './App';
+import { AuthProvider } from './providers/AuthProvider';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <Provider store={store}>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </Provider>
 );
 

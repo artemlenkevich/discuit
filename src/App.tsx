@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { subscribeAuthStateChanges } from './features/auth';
 import { registerUserThunk, selectAuth } from './features/auth/store';
 import { useAppDispatch, useAppSelector } from './hooks/store';
 
@@ -17,10 +16,6 @@ function App() {
   const onSubmit = () => {
     dispatch(registerUserThunk({ email, password, username }));
   };
-
-  useEffect(() => {
-    dispatch(subscribeAuthStateChanges());
-  }, [dispatch]);
 
   return (
     <div>
