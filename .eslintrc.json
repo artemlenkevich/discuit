@@ -40,6 +40,7 @@
       ],
       "rules": {
         "quotes": ["warn", "single"],
+        "jsx-quotes": ["warn", "prefer-single"],
         "no-restricted-imports": [
           "error",
           {
@@ -48,7 +49,7 @@
         ],
     
         "import/order": [
-          "error",
+          "warn",
           {
             "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
             "newlines-between": "always",
