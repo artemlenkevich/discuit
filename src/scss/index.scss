@@ -1,0 +1,7 @@
+@use './reset';
+@use './variables.module.scss' as v;
+
+html {
+  font-family: v.$font;
+  font-size: v.$fs-base;
+}

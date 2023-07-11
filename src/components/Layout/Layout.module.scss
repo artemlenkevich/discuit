@@ -1,0 +1,84 @@
+@use 'src/scss/variables.module.scss' as v;
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; 
+  height: 50px;
+  box-shadow: v.$box-shadow-navbar;
+  background: v.$color-background-blur;
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: v.$card-border;
+}
+
+.inner {
+  padding: 0 15px;
+  max-width: v.$page-width-desktop;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-right: 22.5px;
+  font-family: v.$font;
+  font-size: v.$fs-xl;
+  font-weight: 600;
+  text-decoration: none;
+  color: v.$color-text;
+  &:hover {
+    color: v.$color-brand;
+  }
+} 
+
+.search {
+  position: relative;
+  width: 300px;
+}
+
+.searchInput {
+  padding: 5px 8px 5px 33px;
+  width: 100%;
+  background-color: v.$color-input;
+  font-family: v.$font;
+  font-size: v.$fs-normal;
+  font-weight: 400;
+  color: v.$color-text-black;
+  border: 2px solid rgba(0,0,0,0);
+  border-radius: v.$border-radius;
+  transition: all .2s;
+  outline: none;
+  &::placeholder {
+    color: v.$color-text-black;
+  }
+  &:hover {
+    border-color: v.$color-input-border-hover;
+  }
+  &:focus {
+    border-color: v.$color-input-border-focus;
+    background-color: v.$color-input-active;
+  }
+}
+
+.searchButton {
+  padding: 0;
+  position: absolute;
+  left: 8px;
+  top: calc(50% - 10px);
+  background-color: transparent;
+  border: none;
+  color: v.$color-button-text;
+}
+
+.createAccountButton {
+    margin-left: 7.5px;
+}
