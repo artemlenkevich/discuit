@@ -41,6 +41,8 @@
       "rules": {
         "quotes": ["warn", "single"],
         "jsx-quotes": ["warn", "prefer-single"],
+        "no-param-reassign": ["error", { "props": false }],
+        "arrow-parens": [2, "as-needed"],
         "no-restricted-imports": [
           "error",
           {
@@ -65,7 +67,7 @@
     
         "jsx-a11y/anchor-is-valid": "off",
     
-        "@typescript-eslint/no-unused-vars": ["error"],
+        "@typescript-eslint/no-unused-vars": ["warn"],
         "@typescript-eslint/explicit-function-return-type": ["off"],
         "@typescript-eslint/explicit-module-boundary-types": ["off"],
         "@typescript-eslint/no-empty-function": ["off"],
