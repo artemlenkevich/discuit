@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-import { Button } from '@/components';
-import { Burger, Input } from '@/components/ui';
+import { Burger, Input, Button } from '@/components/ui';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './Layout.module.scss';
@@ -30,7 +29,9 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </div>
         </div>
       </header>
-      <div className={styles.content}>{children}</div>
+      <div className={styles.layout}>
+        <div className={styles.content}>{children}</div>
+      </div>
     </>
   );
 };
