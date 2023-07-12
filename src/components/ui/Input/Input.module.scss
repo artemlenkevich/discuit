@@ -1,0 +1,52 @@
+@use 'src/scss/variables.module.scss' as v;
+@use 'src/scss/utils' ;
+
+.baseInput {
+  padding: 6px 8px;
+  background-color: v.$color-input;
+  font-family: v.$font;
+  font-size: v.$fs-normal;
+  font-weight: 400;
+  color: v.$color-text-black;
+  border: 2px solid rgba(0,0,0,0);
+  border-radius: v.$border-radius;
+  transition: all .2s;
+  outline: none;
+  &::placeholder {
+    color: v.$color-text-black;
+  }
+  &:hover {
+    border-color: v.$color-input-border-hover;
+  }
+  &:focus {
+    border-color: v.$color-input-border-focus;
+    background-color: v.$color-input-active;
+  }
+}
+
+.wrapper {
+  position: relative;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.withStartIcon {
+  padding: 6px 8px 6px 33px;
+  width: 100%;
+}
+
+.startIcon {
+  padding: 0;
+  position: absolute;
+  left: 8px;
+  top: calc(50% - 10px);
+  background-color: transparent;
+  border: none;
+  color: v.$color-button-text;
+  & svg {
+    width: 100%;
+    height: 100%;
+  }
+}

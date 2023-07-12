@@ -43,42 +43,10 @@
 } 
 
 .search {
-  position: relative;
   width: 300px;
-}
-
-.searchInput {
-  padding: 6px 8px 6px 33px;
-  width: 100%;
-  background-color: v.$color-input;
-  font-family: v.$font;
-  font-size: v.$fs-normal;
-  font-weight: 400;
-  color: v.$color-text-black;
-  border: 2px solid rgba(0,0,0,0);
-  border-radius: v.$border-radius;
-  transition: all .2s;
-  outline: none;
-  &::placeholder {
-    color: v.$color-text-black;
+  @include utils.breakpoint(md) {
+    display: none;
   }
-  &:hover {
-    border-color: v.$color-input-border-hover;
-  }
-  &:focus {
-    border-color: v.$color-input-border-focus;
-    background-color: v.$color-input-active;
-  }
-}
-
-.searchButton {
-  padding: 0;
-  position: absolute;
-  left: 8px;
-  top: calc(50% - 10px);
-  background-color: transparent;
-  border: none;
-  color: v.$color-button-text;
 }
 
 .createAccountButton {
@@ -87,7 +55,7 @@
 
 .burgerWrapper {
   margin-right: 15px;
-  @include utils.breakpoint(xl) {
+  @include utils.breakpoint(xl, min) {
     display: none;
   }
 }
