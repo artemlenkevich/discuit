@@ -17,14 +17,14 @@ export const Input: React.FC<InputProps> = ({
   fullWidth,
   className,
   style,
-  ...attr
+  ...attrs
 }) => {
   if (!startIcon)
     return (
       <input
         className={cn(styles.baseInput, className, { [styles.fullWidth]: fullWidth })}
         style={style}
-        {...attr}
+        {...attrs}
       />
     );
 
@@ -33,7 +33,7 @@ export const Input: React.FC<InputProps> = ({
       <button onClick={onStartIconClick} className={styles.startIcon}>
         {startIcon}
       </button>
-      <input className={styles.baseInput + ' ' + styles.withStartIcon} {...attr} />
+      <input className={styles.baseInput + ' ' + styles.withStartIcon} {...attrs} />
     </div>
   );
 };

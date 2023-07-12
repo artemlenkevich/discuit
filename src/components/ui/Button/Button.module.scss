@@ -6,6 +6,10 @@
   font-family: v.$font;
   font-size: v.$fs-normal;
   font-weight: 600;
+  & svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .primaryButton {
