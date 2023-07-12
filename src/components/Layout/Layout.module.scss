@@ -1,4 +1,5 @@
 @use 'src/scss/variables.module.scss' as v;
+@use 'src/scss/utils' ;
 
 .header {
   display: flex;
@@ -47,7 +48,7 @@
 }
 
 .searchInput {
-  padding: 5px 8px 5px 33px;
+  padding: 6px 8px 6px 33px;
   width: 100%;
   background-color: v.$color-input;
   font-family: v.$font;
@@ -82,4 +83,11 @@
 
 .createAccountButton {
     margin-left: 7.5px;
+}
+
+.burgerWrapper {
+  margin-right: 15px;
+  @include utils.breakpoint(xl) {
+    display: none;
+  }
 }
