@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { CSSProperties, ReactElement, ButtonHTMLAttributes } from 'react';
+import { ReactElement, ButtonHTMLAttributes } from 'react';
 
 import styles from './Button.module.scss';
 
@@ -9,6 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disable?: boolean;
   startIcon?: ReactElement;
   underline?: boolean;
+  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   children: string;
 }
 
@@ -17,6 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   fullWidth,
   underline,
+  as = 'button',
   startIcon,
   className,
   ...attrs
@@ -39,9 +41,11 @@ export const Button: React.FC<ButtonProps> = ({
     children
   );
 
+  const Component = as;
+
   return (
-    <button className={buttonClass} {...attrs}>
+    <Component className={buttonClass} {...attrs}>
       {content}
-    </button>
+    </Component>
   );
 };
