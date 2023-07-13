@@ -42,7 +42,6 @@
         "quotes": ["warn", "single"],
         "jsx-quotes": ["warn", "prefer-single"],
         "no-param-reassign": ["error", { "props": false }],
-        "arrow-parens": [2, "as-needed"],
         "no-restricted-imports": [
           "error",
           {

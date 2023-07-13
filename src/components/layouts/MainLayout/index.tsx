@@ -1,11 +1,12 @@
 import { PropsWithChildren } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import { Burger, Input, Button } from '@/components/ui';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './MainLayout.module.scss';
 
-export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
+export const MainLayout: React.FC<PropsWithChildren> = () => {
   return (
     <>
       <header className={styles.header}>
@@ -29,7 +30,9 @@ export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
           </div>
         </div>
       </header>
-      <div className={styles.content}>{/* <div className={styles.content}>{children}</div> */}</div>
+      <div className={styles.content}>
+        <Outlet />
+      </div>
     </>
   );
 };

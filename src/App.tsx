@@ -1,13 +1,7 @@
-import { useState } from 'react';
-
-import { MainLayout } from '@/components/layouts';
+import { AppRoutes } from '@/routes';
 
 function App() {
-  return (
-    <MainLayout>
-      <div>x</div>
-    </MainLayout>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
