@@ -29,8 +29,8 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </div>
         </div>
       </header>
-      <div className={styles.layout}>
-        <div className={styles.content}>{children}</div>
+      <div className={styles.content}>
+        {/* <div className={styles.content}>{children}</div> */}
       </div>
     </>
   );
