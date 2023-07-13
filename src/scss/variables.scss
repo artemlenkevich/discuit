@@ -79,7 +79,3 @@ $card-shadow-style-1: 0 0 0 1px rgba($base-fg, 0.09);
 $card-shadow-style-2: rgba($base-fg, 0.2) 0px 1px 2px 0px;
 $card-shadow: $card-shadow-style-1;
 $seperator: 1px solid rgba($base-fg, 0.1);
-
-:export {
-  red: $base-red;
-}

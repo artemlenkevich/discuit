@@ -1,5 +1,5 @@
 @use './reset';
-@use './variables.module.scss' as v;
+@use './variables.scss' as v;
 
 html {
   font-family: v.$font;
