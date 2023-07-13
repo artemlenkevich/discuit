@@ -1,0 +1,14 @@
+@use 'src/scss/variables.scss' as v;
+@use 'src/scss/utils' ;
+
+.content {
+  margin: 0 auto;
+  padding: 15px 15px 0;
+  max-width: 1200px;
+  width: 100%;
+  background-color: v.$color-body;
+  min-height: 100%;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: 295px auto 295px;
+}

@@ -5,7 +5,7 @@ import { Burger, Input, Button } from '@/components/ui';
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './MainLayout.module.scss';
 
-export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <header className={styles.header}>
