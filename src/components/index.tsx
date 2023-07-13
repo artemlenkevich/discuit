@@ -1,2 +1,2 @@
-export { Layout } from './Layout';
+export { Layout } from './layouts/MainLayout';
 export { Button } from './ui';

@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react';
 import { Burger, Input, Button } from '@/components/ui';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
-import styles from './Layout.module.scss';
+import styles from './MainLayout.module.scss';
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -29,9 +29,7 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </div>
         </div>
       </header>
-      <div className={styles.content}>
-        {/* <div className={styles.content}>{children}</div> */}
-      </div>
+      <div className={styles.content}>{/* <div className={styles.content}>{children}</div> */}</div>
     </>
   );
 };
