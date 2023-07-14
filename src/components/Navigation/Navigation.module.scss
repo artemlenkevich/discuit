@@ -1,0 +1,13 @@
+@use 'src/scss/variables.scss' as v;
+@use 'src/scss/utils' ;
+
+.navItem {
+  margin-bottom: 7px;
+}
+
+.navLink {
+  & svg {
+    width: 25px;
+    height: 25px;
+  }
+}

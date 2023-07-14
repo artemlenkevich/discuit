@@ -12,6 +12,7 @@ const router = createBrowserRouter(
     <Route path='/' element={<MainLayout />}>
       <Route element={<FeedLayout />}>
         <Route path='/' element={<div>x</div>}></Route>
+        <Route path='subscriptions' element={<div>subscriptions</div>}></Route>
       </Route>
     </Route>
   )
