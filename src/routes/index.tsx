@@ -5,7 +5,7 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 
-import { FeedLayout, MainLayout } from '@/components/layouts';
+import { FeedLayout, MainLayout } from '@/layouts';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
