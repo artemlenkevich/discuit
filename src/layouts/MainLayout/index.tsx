@@ -1,7 +1,9 @@
 import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Burger, Input, Button } from '@/components/ui';
+import { Burger } from '@/components/ui/Burger';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './MainLayout.module.scss';

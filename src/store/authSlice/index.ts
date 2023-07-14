@@ -5,7 +5,13 @@ import { auth } from '@/config/firebase';
 import { NormalizedError, normalizeError } from '@/lib';
 import { RootState } from '@/store';
 
-import { LogInUserOptions, RegisterUserOptions, logOutUser, loginUser, registerUser } from '../api';
+import {
+  LogInUserOptions,
+  RegisterUserOptions,
+  logOutUser,
+  loginUser,
+  registerUser,
+} from '../../api';
 
 interface UserState {
   isAuthenticated: boolean;

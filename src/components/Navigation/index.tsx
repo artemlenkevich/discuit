@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Button } from '@/components/ui';
+import { Button } from '@/components/ui/Button';
 
 import { ReactComponent as HomeIcon } from './assets/home-icon.svg';
 import { ReactComponent as SubscriptionsIcon } from './assets/subscriptions-icon.svg';
