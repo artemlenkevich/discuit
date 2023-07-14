@@ -8,9 +8,9 @@ import {
   loginUser,
   registerUser,
 } from '@/api/user';
-import { auth } from '@/config/firebase';
-import { NormalizedError, normalizeError } from '@/lib';
+import { auth } from '@/lib/firebase';
 import { RootState } from '@/store';
+import { NormalizedError, normalizeError } from '@/utils/api-error';
 
 interface UserState {
   isAuthenticated: boolean;
