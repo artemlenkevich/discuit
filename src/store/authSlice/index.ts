@@ -1,17 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { onAuthStateChanged } from 'firebase/auth';
 
-import { auth } from '@/config/firebase';
-import { NormalizedError, normalizeError } from '@/lib';
-import { RootState } from '@/store';
-
 import {
   LogInUserOptions,
   RegisterUserOptions,
   logOutUser,
   loginUser,
   registerUser,
-} from '../../api';
+} from '@/api/user';
+import { auth } from '@/config/firebase';
+import { NormalizedError, normalizeError } from '@/lib';
+import { RootState } from '@/store';
 
 interface UserState {
   isAuthenticated: boolean;
