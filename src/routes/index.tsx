@@ -7,11 +7,13 @@ import {
 
 import { FeedLayout, MainLayout } from '@/layouts';
 
+import { Home } from './Home';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
       <Route element={<FeedLayout />}>
-        <Route path='/' element={<div>x</div>}></Route>
+        <Route path='/' element={<Home />}></Route>
         <Route path='subscriptions' element={<div>subscriptions</div>}></Route>
       </Route>
     </Route>
