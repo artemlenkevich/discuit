@@ -1,0 +1,15 @@
+@use 'src/scss/variables.scss' as v;
+
+.selectBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 7.5px;
+}
+
+.name {
+  font-family: v.$font;
+  font-size: v.$fs-l;
+  font-weight: 400;
+  color: v.$color-button-text;
+}
