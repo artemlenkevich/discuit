@@ -18,6 +18,10 @@ export const MainLayout: React.FC = () => {
     dispatch(openModal(Modals.logInModal));
   };
 
+  const onSignUpClick = () => {
+    dispatch(openModal(Modals.signUpModal));
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -37,7 +41,11 @@ export const MainLayout: React.FC = () => {
             <Button onClick={onLogInClick} variant='text'>
               Login
             </Button>
-            <Button className={styles.createAccountButton} variant='primary'>
+            <Button
+              onClick={onSignUpClick}
+              className={styles.createAccountButton}
+              variant='primary'
+            >
               Create account
             </Button>
           </div>

@@ -9,6 +9,7 @@ type UserState = {
 
 const initialState = {
   logInModal: false,
+  signUpModal: false,
 } as UserState;
 
 export const modalsSlice = createSlice({
