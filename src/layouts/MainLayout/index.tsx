@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/Input';
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './MainLayout.module.scss';
 
-export const MainLayout: React.FC<PropsWithChildren> = () => {
+export const MainLayout: React.FC = () => {
   return (
     <>
       <header className={styles.header}>

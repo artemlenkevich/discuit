@@ -16,6 +16,7 @@
   background-color: v.$color-bg;
   border-radius: v.$border-radius;
   box-shadow: v.$modal-box-shadow;
+  outline: none;
 }
 
 .header {
@@ -27,7 +28,7 @@
 }
 
 .title {
-  font-family: v.$font  ;
+  font-family: v.$font;
   font-size: v.$fs-xl;
   font-weight: 600;
   color: v.$color-text;
@@ -35,11 +36,4 @@
 
 .content {
   padding: 15px;
-}
-
-.form {
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 }

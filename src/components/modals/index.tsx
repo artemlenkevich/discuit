@@ -1,5 +1,5 @@
-import { BaseModal } from './BaseModal';
+import { LogInModal } from './LogInModal';
 
 export const Modals: React.FC = () => {
-  return <BaseModal />;
+  return <LogInModal />;
 };
