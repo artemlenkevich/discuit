@@ -1,0 +1,45 @@
+@use 'src/scss/variables.scss' as v;
+
+.overlayClassName {
+  position: fixed;
+  inset: 0px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: v.$color-modal-overlay;
+  backdrop-filter: v.$modal-bg-blur;
+}
+
+.baseModal {
+  max-width: 360px;
+  width: 100%;
+  background-color: v.$color-bg;
+  border-radius: v.$border-radius;
+  box-shadow: v.$modal-box-shadow;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: v.$separator;
+}
+
+.title {
+  font-family: v.$font  ;
+  font-size: v.$fs-xl;
+  font-weight: 600;
+  color: v.$color-text;
+}
+
+.content {
+  padding: 15px;
+}
+
+.form {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
