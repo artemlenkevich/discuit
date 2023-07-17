@@ -1,8 +1,31 @@
 @use 'src/scss/variables.scss' as v;
 @use 'src/scss/utils' ;
 
-.baseInput {
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 200px;
+  width: 100%;
+}
+
+.fullWidth {
+  max-width: none;
+}
+
+.label {
+  font-family: v.$font;
+  font-weight: 600;
+  font-size: v.$fs-normal;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
   padding: 6px 8px;
+  width: 100%;
   background-color: v.$color-input;
   font-family: v.$font;
   font-size: v.$fs-normal;
@@ -24,17 +47,8 @@
   }
 }
 
-.wrapper {
-  position: relative;
-}
-
-.fullWidth {
-  width: 100%;
-}
-
 .withStartIcon {
   padding: 6px 8px 6px 33px;
-  width: 100%;
 }
 
 .startIcon {
