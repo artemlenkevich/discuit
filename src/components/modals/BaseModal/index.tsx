@@ -12,6 +12,7 @@ interface BaseModalProps {
 }
 
 export const BaseModal: React.FC<PropsWithChildren<BaseModalProps>> = ({
+  isOpen,
   children,
   title,
   onCloseClick,
@@ -20,7 +21,7 @@ export const BaseModal: React.FC<PropsWithChildren<BaseModalProps>> = ({
     <ReactModal
       className={styles.baseModal}
       overlayClassName={styles.overlayClassName}
-      isOpen={true}
+      isOpen={isOpen}
     >
       <div className={styles.header}>
         <div className={styles.title}>{title}</div>

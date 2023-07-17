@@ -7,8 +7,17 @@ import { Input } from '@/components/ui/Input';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './MainLayout.module.scss';
+import { useAppDispatch } from '@/hooks/store';
+import { openModal } from '@/store/modalsSlice';
+import { Modals } from '@/types/modals';
 
 export const MainLayout: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const onLogInClick = () => {
+    dispatch(openModal(Modals.logInModal));
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -25,7 +34,9 @@ export const MainLayout: React.FC = () => {
             </div>
           </div>
           <div className={styles.right}>
-            <Button variant='text'>Login</Button>
+            <Button onClick={onLogInClick} variant='text'>
+              Login
+            </Button>
             <Button className={styles.createAccountButton} variant='primary'>
               Create account
             </Button>
