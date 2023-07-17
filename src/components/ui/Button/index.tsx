@@ -6,7 +6,6 @@ import styles from './Button.module.scss';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'text';
   fullWidth?: boolean;
-  disable?: boolean;
   startIcon?: ReactElement;
   underline?: boolean;
   as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
