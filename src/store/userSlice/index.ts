@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import {
-  LogInUserOptions,
-  RegisterUserOptions,
+  LogInUserWithEmailAndPasswordOptions,
+  RegisterUserWithEmailAndPasswordOptions,
   logOutUser,
-  loginUser,
-  registerUser,
+  loginUserWithEmailAndPassword,
+  registerUserWithEmailAndPassword,
 } from '@/api/user';
 import { auth } from '@/lib/firebase';
 import { RootState } from '@/store';
@@ -28,8 +28,8 @@ const initialState = {
   error: null,
 } as UserState;
 
-export const authSlice = createSlice({
-  name: 'auth',
+export const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
     setCurrentUser: (state, action) => {
@@ -50,22 +50,22 @@ export const authSlice = createSlice({
   },
 });
 
-export const registerUserThunk = createAsyncThunk(
-  'auth/registerUserThunk',
-  async ({ email, password, username }: RegisterUserOptions, { dispatch }) => {
+export const registerUserWithEmailAndPasswordThunk = createAsyncThunk(
+  'user/registerUserThunk',
+  async ({ email, password, username }: RegisterUserWithEmailAndPasswordOptions, { dispatch }) => {
     try {
-      await registerUser({ email, password, username });
+      await registerUserWithEmailAndPassword({ email, password, username });
     } catch (e) {
       dispatch(setError(normalizeError(e)));
     }
   }
 );
 
-export const logInUserThunk = createAsyncThunk(
-  'auth/logInUserThunk',
-  async ({ email, password }: LogInUserOptions, { dispatch }) => {
+export const logInUserWithEmailAndPasswordThunk = createAsyncThunk(
+  'user/logInUserThunk',
+  async ({ email, password }: LogInUserWithEmailAndPasswordOptions, { dispatch }) => {
     try {
-      await loginUser({ email, password });
+      await loginUserWithEmailAndPassword({ email, password });
     } catch (e) {
       dispatch(setError(normalizeError(e)));
     }
@@ -73,7 +73,7 @@ export const logInUserThunk = createAsyncThunk(
 );
 
 export const subscribeAuthStateChanges = createAsyncThunk(
-  'auth/subscribeAuthStateChanges',
+  'user/subscribeAuthStateChanges',
   async (_, { dispatch }) => {
     try {
       onAuthStateChanged(auth, async (user) => {
@@ -97,7 +97,7 @@ export const subscribeAuthStateChanges = createAsyncThunk(
   }
 );
 
-export const logOutUserThunk = createAsyncThunk('auth/logOutUser', async (_, { dispatch }) => {
+export const logOutUserThunk = createAsyncThunk('user/logOutUser', async (_, { dispatch }) => {
   try {
     await logOutUser();
   } catch (e) {
@@ -105,7 +105,7 @@ export const logOutUserThunk = createAsyncThunk('auth/logOutUser', async (_, { d
   }
 });
 
-export const { setCurrentUser, unSetCurrentUser, setError } = authSlice.actions;
+export const { setCurrentUser, unSetCurrentUser, setError } = userSlice.actions;
 
-export const { reducer: authReducer } = authSlice;
-export const selectAuth = (state: RootState) => state.auth;
+export const { reducer: userReducer } = userSlice;
+export const selectUser = (state: RootState) => state.user;

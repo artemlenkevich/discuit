@@ -8,18 +8,22 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 import { auth, db } from '@/lib/firebase';
 
-export interface RegisterUserOptions {
+export interface RegisterUserWithEmailAndPasswordOptions {
   email: string;
   password: string;
   username: string;
 }
 
-export interface LogInUserOptions {
+export interface LogInUserWithEmailAndPasswordOptions {
   email: string;
   password: string;
 }
 
-export const registerUser = async ({ email, password, username }: RegisterUserOptions) => {
+export const registerUserWithEmailAndPassword = async ({
+  email,
+  password,
+  username,
+}: RegisterUserWithEmailAndPasswordOptions) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -38,7 +42,10 @@ export const registerUser = async ({ email, password, username }: RegisterUserOp
   }
 };
 
-export const loginUser = async ({ email, password }: LogInUserOptions) => {
+export const loginUserWithEmailAndPassword = async ({
+  email,
+  password,
+}: LogInUserWithEmailAndPasswordOptions) => {
   try {
     return await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
