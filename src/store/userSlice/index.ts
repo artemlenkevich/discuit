@@ -4,9 +4,11 @@ import { onAuthStateChanged } from 'firebase/auth';
 import {
   LogInUserWithEmailAndPasswordOptions,
   RegisterUserWithEmailAndPasswordOptions,
+  UpdateUserProfileOptions,
   logOutUser,
   loginUserWithEmailAndPassword,
   registerUserWithEmailAndPassword,
+  updateUserProfile,
 } from '@/api/user';
 import { auth } from '@/lib/firebase';
 import { RootState } from '@/store';
@@ -51,10 +53,21 @@ export const userSlice = createSlice({
 });
 
 export const registerUserWithEmailAndPasswordThunk = createAsyncThunk(
-  'user/registerUserThunk',
-  async ({ email, password, username }: RegisterUserWithEmailAndPasswordOptions, { dispatch }) => {
+  'user/registerUserWithEmailAndPasswordThunk',
+  async ({ email, password }: RegisterUserWithEmailAndPasswordOptions, { dispatch }) => {
     try {
-      await registerUserWithEmailAndPassword({ email, password, username });
+      await registerUserWithEmailAndPassword({ email, password });
+    } catch (e) {
+      dispatch(setError(normalizeError(e)));
+    }
+  }
+);
+
+export const updateUserProfileThunk = createAsyncThunk(
+  'user/updateUserProfileThunk',
+  async ({ name, photoURL }: UpdateUserProfileOptions, { dispatch }) => {
+    try {
+      await updateUserProfile({ name, photoURL });
     } catch (e) {
       dispatch(setError(normalizeError(e)));
     }

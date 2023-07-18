@@ -4,14 +4,13 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 import { auth, db } from '@/lib/firebase';
 
 export interface RegisterUserWithEmailAndPasswordOptions {
   email: string;
   password: string;
-  username: string;
 }
 
 export interface LogInUserWithEmailAndPasswordOptions {
@@ -19,23 +18,32 @@ export interface LogInUserWithEmailAndPasswordOptions {
   password: string;
 }
 
+export interface UpdateUserProfileOptions {
+  name?: string;
+  photoURL?: string;
+}
+
 export const registerUserWithEmailAndPassword = async ({
   email,
   password,
-  username,
 }: RegisterUserWithEmailAndPasswordOptions) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
-
-    await updateProfile(res.user, {
-      displayName: username,
-    });
-
-    await setDoc(doc(db, 'users', res.user.uid), {
-      role: 'user',
-    });
-
     return res;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const updateUserProfile = async ({ name, photoURL }: UpdateUserProfileOptions) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) throw new Error('There is no current user');
+    await updateProfile(user, {
+      displayName: name,
+      photoURL,
+    });
   } catch (err) {
     console.error(err);
     throw err;
