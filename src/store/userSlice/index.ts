@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, Update, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import {
@@ -22,6 +22,8 @@ interface UserState {
   error: NormalizedError | null;
 }
 
+type UpdateUserPayload = Pick<UserState, 'email' | 'name'>;
+
 const initialState = {
   isAuthenticated: false,
   email: null,
@@ -34,17 +36,21 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCurrentUser: (state, action) => {
+    setUser: (state, action) => {
       state.isAuthenticated = true;
       state.email = action.payload.email;
       state.name = action.payload.name;
       state.uid = action.payload.uid;
     },
-    unSetCurrentUser: (state) => {
+    unSetUser: (state) => {
       state.isAuthenticated = false;
       state.email = null;
       state.name = null;
       state.uid = null;
+    },
+    updateUser: (state, action: PayloadAction<UpdateUserPayload>) => {
+      state.email = action.payload.email;
+      state.name = action.payload.name;
     },
     setError: (state, action) => {
       state.error = action.payload;
@@ -65,9 +71,12 @@ export const registerUserWithEmailAndPasswordThunk = createAsyncThunk(
 
 export const updateUserProfileThunk = createAsyncThunk(
   'user/updateUserProfileThunk',
-  async ({ name, photoURL }: UpdateUserProfileOptions, { dispatch }) => {
+  async ({ username, photoURL }: UpdateUserProfileOptions, { dispatch }) => {
     try {
-      await updateUserProfile({ name, photoURL });
+      const updatedUser = await updateUserProfile({ username, photoURL });
+      const { displayName, email } = updatedUser;
+
+      dispatch(updateUser({ name: displayName, email }));
     } catch (e) {
       dispatch(setError(normalizeError(e)));
     }
@@ -94,14 +103,14 @@ export const subscribeAuthStateChanges = createAsyncThunk(
           const { email, displayName, uid } = user;
 
           await dispatch(
-            setCurrentUser({
+            setUser({
               name: displayName,
               email,
               uid,
             })
           );
         } else {
-          dispatch(unSetCurrentUser());
+          dispatch(unSetUser());
         }
       });
     } catch (e) {
@@ -118,7 +127,7 @@ export const logOutUserThunk = createAsyncThunk('user/logOutUser', async (_, { d
   }
 });
 
-export const { setCurrentUser, unSetCurrentUser, setError } = userSlice.actions;
+export const { setUser, unSetUser, updateUser, setError } = userSlice.actions;
 
 export const { reducer: userReducer } = userSlice;
 export const selectUser = (state: RootState) => state.user;

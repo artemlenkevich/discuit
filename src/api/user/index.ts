@@ -19,7 +19,7 @@ export interface LogInUserWithEmailAndPasswordOptions {
 }
 
 export interface UpdateUserProfileOptions {
-  name?: string;
+  username?: string;
   photoURL?: string;
 }
 
@@ -36,14 +36,16 @@ export const registerUserWithEmailAndPassword = async ({
   }
 };
 
-export const updateUserProfile = async ({ name, photoURL }: UpdateUserProfileOptions) => {
+export const updateUserProfile = async ({ username, photoURL }: UpdateUserProfileOptions) => {
   try {
     const user = auth.currentUser;
     if (!user) throw new Error('There is no current user');
     await updateProfile(user, {
-      displayName: name,
+      displayName: username,
       photoURL,
     });
+
+    return user;
   } catch (err) {
     console.error(err);
     throw err;
