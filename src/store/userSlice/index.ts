@@ -1,9 +1,8 @@
-import { PayloadAction, Update, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { onAuthStateChanged } from 'firebase/auth';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AuthErrorCodes, onAuthStateChanged } from 'firebase/auth';
 
 import {
   LogInUserWithEmailAndPasswordOptions,
-  RegisterUserWithEmailAndPasswordOptions,
   UpdateUserProfileOptions,
   logOutUser,
   loginUserWithEmailAndPassword,
@@ -13,6 +12,8 @@ import {
 import { auth } from '@/lib/firebase';
 import { RootState } from '@/store';
 import { NormalizedError, normalizeError } from '@/utils/api-error';
+import { FirebaseError } from 'firebase/app';
+import { errorCodeToMessage, isUserInputError } from '@/utils/user-input-error';
 
 interface UserState {
   isAuthenticated: boolean;
@@ -23,6 +24,12 @@ interface UserState {
 }
 
 type UpdateUserPayload = Pick<UserState, 'email' | 'name'>;
+
+interface RegisterUserWithEmailThunkOptions {
+  username: string;
+  email: string;
+  password: string;
+}
 
 const initialState = {
   isAuthenticated: false,
@@ -58,12 +65,18 @@ export const userSlice = createSlice({
   },
 });
 
-export const registerUserWithEmailAndPasswordThunk = createAsyncThunk(
-  'user/registerUserWithEmailAndPasswordThunk',
-  async ({ email, password }: RegisterUserWithEmailAndPasswordOptions, { dispatch }) => {
+export const registerUserWithEmailThunk = createAsyncThunk(
+  'user/registerUserWithEmailThunk',
+  async ({ email, username, password }: RegisterUserWithEmailThunkOptions, { dispatch }) => {
     try {
       await registerUserWithEmailAndPassword({ email, password });
+      await dispatch(updateUserProfileThunk({ username }));
     } catch (e) {
+      if (e instanceof FirebaseError && isUserInputError(e)) {
+        /* Return a error message to handle in onSubmit handler */
+        return { errorMessage: errorCodeToMessage(e.code) };
+      }
+
       dispatch(setError(normalizeError(e)));
     }
   }
