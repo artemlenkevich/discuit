@@ -49,10 +49,6 @@
   }
 }
 
-.createAccountButton {
-    margin-left: 7.5px;
-}
-
 .burgerWrapper {
   margin-right: 15px;
   @include utils.breakpoint(xl, min) {

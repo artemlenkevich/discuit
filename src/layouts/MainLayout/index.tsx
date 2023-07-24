@@ -1,27 +1,13 @@
-import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { Burger } from '@/components/ui/Burger';
-import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './MainLayout.module.scss';
-import { useAppDispatch } from '@/hooks/store';
-import { openModal } from '@/store/modalsSlice';
-import { Modals } from '@/types/modals';
+import { UnauthorizedWidget } from './UnauthorizedWidget';
 
 export const MainLayout: React.FC = () => {
-  const dispatch = useAppDispatch();
-
-  const onLogInClick = () => {
-    dispatch(openModal(Modals.logInModal));
-  };
-
-  const onSignUpClick = () => {
-    dispatch(openModal(Modals.signUpModal));
-  };
-
   return (
     <>
       <header className={styles.header}>
@@ -38,16 +24,7 @@ export const MainLayout: React.FC = () => {
             </div>
           </div>
           <div className={styles.right}>
-            <Button onClick={onLogInClick} variant='text'>
-              Login
-            </Button>
-            <Button
-              onClick={onSignUpClick}
-              className={styles.createAccountButton}
-              variant='primary'
-            >
-              Create account
-            </Button>
+            <UnauthorizedWidget />
           </div>
         </div>
       </header>

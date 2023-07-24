@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AuthErrorCodes, onAuthStateChanged } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import {
   LogInUserWithEmailAndPasswordOptions,
@@ -12,7 +13,6 @@ import {
 import { auth } from '@/lib/firebase';
 import { RootState } from '@/store';
 import { NormalizedError, normalizeError } from '@/utils/api-error';
-import { FirebaseError } from 'firebase/app';
 import { errorCodeToMessage, isUserInputError } from '@/utils/user-input-error';
 
 interface UserState {
