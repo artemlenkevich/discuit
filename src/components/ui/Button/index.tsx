@@ -22,7 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   ...attrs
 }) => {
-  const buttonClass = cn(className, styles.baseButton, {
+  const buttonClass = cn(styles.baseButton, className, {
     [styles.primaryButton]: variant === 'primary',
     [styles.secondaryButton]: variant === 'secondary',
     [styles.textButton]: variant === 'text',
