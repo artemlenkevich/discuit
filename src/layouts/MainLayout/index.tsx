@@ -2,12 +2,16 @@ import { Outlet } from 'react-router-dom';
 
 import { Burger } from '@/components/ui/Burger';
 import { Input } from '@/components/ui/Input';
+import { useAppSelector } from '@/hooks/store';
+import { selectIsAuthenticated } from '@/store/userSlice';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './MainLayout.module.scss';
+import { ProfileWidget } from './ProfileWidget';
 import { UnauthorizedWidget } from './UnauthorizedWidget';
 
 export const MainLayout: React.FC = () => {
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   return (
     <>
       <header className={styles.header}>
@@ -24,7 +28,7 @@ export const MainLayout: React.FC = () => {
             </div>
           </div>
           <div className={styles.right}>
-            <UnauthorizedWidget />
+            {isAuthenticated ? <ProfileWidget /> : <UnauthorizedWidget />}
           </div>
         </div>
       </header>

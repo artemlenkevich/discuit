@@ -143,4 +143,6 @@ export const logOutUserThunk = createAsyncThunk('user/logOutUser', async (_, { d
 export const { setUser, unSetUser, updateUser, setError } = userSlice.actions;
 
 export const { reducer: userReducer } = userSlice;
+
 export const selectUser = (state: RootState) => state.user;
+export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated;

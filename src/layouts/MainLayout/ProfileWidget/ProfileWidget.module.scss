@@ -1,0 +1,29 @@
+@use 'src/scss/variables.scss' as v;
+@use 'src/scss/utils' ;
+
+.root {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.username {
+  color: v.$color-text;
+  font-family: v.$font;
+  font-size: v.$fs-normal;
+}
+
+.dropdown {
+  padding: 6px;
+  min-width: 170px;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 100%;
+}
+
+.logoutButton {
+  justify-content: left;
+}
