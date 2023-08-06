@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import ReactModal from 'react-modal';
 
 import { CloseButton } from '@/components/ui/CloseButton';
@@ -22,6 +22,7 @@ export const BaseModal: React.FC<PropsWithChildren<BaseModalProps>> = ({
       className={styles.baseModal}
       overlayClassName={styles.overlayClassName}
       isOpen={isOpen}
+      onRequestClose={onCloseClick}
     >
       <div className={styles.header}>
         <div className={styles.title}>{title}</div>
