@@ -17,7 +17,6 @@ export const ProfileWidget: React.FC = () => {
 
   const onLogoutClick = () => {
     dispatch(logOutUserThunk());
-    console.log('click');
   };
 
   return (

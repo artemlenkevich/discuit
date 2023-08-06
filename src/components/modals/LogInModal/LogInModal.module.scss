@@ -1,8 +1,13 @@
 @use 'src/scss/variables.scss' as v;
 
 .form {
-  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.errorMessage {
+  color: v.$color-red;
+  font-size: v.$fs-normal;
+  font-family: v.$font;
 }

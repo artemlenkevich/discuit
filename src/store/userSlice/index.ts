@@ -73,7 +73,23 @@ export const registerUserWithEmailThunk = createAsyncThunk(
       await dispatch(updateUserProfileThunk({ username }));
     } catch (e) {
       if (e instanceof FirebaseError && isUserInputError(e)) {
-        /* Return a error message to handle in onSubmit handler */
+        /* Return an error message to handle in onSubmit handler */
+        return { errorMessage: errorCodeToMessage(e.code) };
+      }
+
+      dispatch(setError(normalizeError(e)));
+    }
+  }
+);
+
+export const logInUserWithEmailAndPasswordThunk = createAsyncThunk(
+  'user/logInUserThunk',
+  async ({ email, password }: LogInUserWithEmailAndPasswordOptions, { dispatch }) => {
+    try {
+      await loginUserWithEmailAndPassword({ email, password });
+    } catch (e) {
+      if (e instanceof FirebaseError && isUserInputError(e)) {
+        /* Return an error message to handle in onSubmit handler */
         return { errorMessage: errorCodeToMessage(e.code) };
       }
 
@@ -90,17 +106,6 @@ export const updateUserProfileThunk = createAsyncThunk(
       const { displayName, email } = updatedUser;
 
       dispatch(updateUser({ name: displayName, email }));
-    } catch (e) {
-      dispatch(setError(normalizeError(e)));
-    }
-  }
-);
-
-export const logInUserWithEmailAndPasswordThunk = createAsyncThunk(
-  'user/logInUserThunk',
-  async ({ email, password }: LogInUserWithEmailAndPasswordOptions, { dispatch }) => {
-    try {
-      await loginUserWithEmailAndPassword({ email, password });
     } catch (e) {
       dispatch(setError(normalizeError(e)));
     }
