@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 import { Button } from '@/components/ui/Button';
 import { useAppDispatch, useAppSelector } from '@/hooks/store';
-import { closeModal, selectModals } from '@/store/modalsSlice';
+import { closeModal, openModal, selectModals } from '@/store/modalsSlice';
 import { registerUserWithEmailThunk } from '@/store/userSlice';
 import { Modals } from '@/types/modals';
 
@@ -64,6 +64,11 @@ export const SignUpModal: React.FC = () => {
       });
   };
 
+  const onSignInRedirectClick = () => {
+    dispatch(closeModal(Modals.signUpModal));
+    dispatch(openModal(Modals.logInModal));
+  };
+
   return (
     <BaseModal title='Signup' isOpen={isOpen} onCloseClick={onCloseClick}>
       <Formik
@@ -79,6 +84,9 @@ export const SignUpModal: React.FC = () => {
             Signup
           </Button>
           {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
+          <Button fullWidth variant='text' onClick={onSignInRedirectClick}>
+            Already have an account? Login
+          </Button>
         </Form>
       </Formik>
     </BaseModal>
