@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren } from 'react';
 import ReactModal from 'react-modal';
 
 import { CloseButton } from '@/components/ui/CloseButton';

@@ -9,6 +9,7 @@ import { logInUserWithEmailAndPasswordThunk } from '@/store/userSlice';
 import { Modals } from '@/types/modals';
 
 import { BaseModal } from '../BaseModal';
+import { validationConfig } from '../lib';
 import { ModalInput } from '../ModalInput';
 
 import styles from './LogInModal.module.scss';
@@ -23,9 +24,11 @@ const initialValues: FormValues = {
   password: '',
 };
 
+const { email, password } = validationConfig;
+
 const validationSchema = Yup.object({
-  email: Yup.string().email('Invalid email address').required('Required'),
-  password: Yup.string().min(6, 'Must be 6 characters or more').required('Required'),
+  email,
+  password,
 });
 
 export const LogInModal: React.FC = () => {
