@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
+import { CreatePostWidget } from '@/components/CreatePostWidget';
 import { Navigation } from '@/components/Navigation';
 
 import styles from './FeedLayout.module.scss';
@@ -12,6 +13,9 @@ export const FeedLayout: React.FC = () => {
           <Navigation />
         </div>
         <Outlet />
+        <div className={styles.rightSidebar}>
+          <CreatePostWidget />
+        </div>
       </div>
     </div>
   );

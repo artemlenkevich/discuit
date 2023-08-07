@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react';
 import styles from './Tile.module.scss';
 
 interface TileProps {
-  className: string;
+  className?: string;
 }
 
 export const Tile: React.FC<PropsWithChildren<TileProps>> = ({ className, children }) => {

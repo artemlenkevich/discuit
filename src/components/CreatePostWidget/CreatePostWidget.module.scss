@@ -1,0 +1,23 @@
+@use 'src/scss/variables.scss' as v;
+@use 'src/scss/utils' ;
+
+.root {
+  padding: 15px;
+}
+
+.title {
+  margin-bottom: 3px;
+  font-family: v.$font;
+  font-size: v.$fs-l;
+  font-weight: 600;
+  color: v.$color-text;
+}
+
+.text {
+  font-family: v.$font;
+  font-size: v.$fs-normal;
+  font-weight: 400;
+  color: v.$color-text;
+  line-height: 21px;
+  margin-bottom: 8px;
+}
