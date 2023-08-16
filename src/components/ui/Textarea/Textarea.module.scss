@@ -1,0 +1,27 @@
+@use 'src/scss/variables.scss' as v;
+
+.root {
+  padding: 10px;
+  width: 100%;
+  background-color: v.$color-input;
+  font-family: v.$font;
+  font-size: v.$fs-normal;
+  font-weight: 400;
+  color: v.$color-text-black;
+  border: 2px solid rgba(0,0,0,0);
+  border-radius: v.$border-radius;
+  overflow: hidden;
+  transition: all .2s;
+  outline: none;
+  resize: none;
+  &::placeholder {
+    color: v.$color-text-black;
+  }
+  &:hover {
+    border-color: v.$color-input-border-hover;
+  }
+  &:focus {
+    border-color: v.$color-input-border-focus;
+    background-color: v.$color-input-active;
+  }
+}
