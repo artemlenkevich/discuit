@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { Button } from '@/components/ui/Button';
 import { Tile } from '@/components/ui/Tile';
 
@@ -10,7 +12,9 @@ export const CreatePostWidget: React.FC = () => {
       <p className={styles.text}>
         Discuit is a place where 2987 people get together to find cool stuff and discuss things.
       </p>
-      <Button fullWidth>Create post</Button>
+      <Link to='new'>
+        <Button fullWidth>Create post</Button>
+      </Link>
     </Tile>
   );
 };
