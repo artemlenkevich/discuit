@@ -1,0 +1,73 @@
+@use 'src/scss/variables.scss' as v;
+@use 'src/scss/utils' ;
+
+.root {
+  background-color: v.$color-body;
+  height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+  padding-inline: 15px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.topBar {
+  padding-block: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  font-family: v.$font;
+  font-size: v.$fs-l;
+  font-weight: 600;
+  color: v.$color-text; 
+}
+
+.postEditor {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+.post {
+  padding: 15px;
+}
+
+@mixin textarea {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  &:focus {
+    background-color: transparent;
+  }
+}
+
+.postTitle {
+ @include textarea;
+ margin-bottom: 5px;
+ min-height: 26px;
+ &::placeholder {
+  font-size: v.$fs-xl;
+  color: v.$base-fg;
+  font-weight: 600;
+}
+}
+
+.postContent {
+  @include textarea;
+  &::placeholder {
+    font-size: v.$fs-normal;
+    color: v.$base-fg;
+    font-weight: 400;
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
