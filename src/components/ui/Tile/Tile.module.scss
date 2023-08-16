@@ -1,7 +1,6 @@
 @use 'src/scss/variables.scss' as v;
 
 .tile {
-  border: v.$card-border;
   background-color: v.$color-bg;
   border-radius: v.$border-radius;
   box-shadow: v.$card-shadow;
