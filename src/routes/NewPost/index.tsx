@@ -1,3 +1,4 @@
+import { Field, FieldProps, Form, Formik, FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/Button';
@@ -6,12 +7,33 @@ import { Textarea } from '@/components/ui/Textarea/indext';
 import { Tile } from '@/components/ui/Tile';
 
 import styles from './NewPost.module.scss';
+import { useAppDispatch } from '@/hooks/store';
+import { addPostThunk } from '@/store/postsSlice';
+
+interface PostValues {
+  title: string;
+  text: string;
+}
+
+const initialValues: PostValues = {
+  title: '',
+  text: '',
+};
 
 export const NewPost: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onCloseClick = () => {
     navigate('/');
+  };
+
+  const onPostSubmit = ({ title, text }: PostValues, helpers: FormikHelpers<PostValues>) => {
+    dispatch(addPostThunk({ title, text }))
+      .unwrap()
+      .then(() => {
+        helpers.resetForm();
+      });
   };
 
   return (
@@ -21,28 +43,40 @@ export const NewPost: React.FC = () => {
           <h1 className={styles.header}>Create a post</h1>
           <CloseButton onClick={onCloseClick} />
         </div>
-        <div className={styles.postEditor}>
-          <Tile>
-            <div className={styles.post}>
-              <Textarea
-                className={styles.postTitle}
-                rows={1}
-                placeholder='Post title goes here ...'
-                autoGrow
-              />
-              <Textarea
-                className={styles.postContent}
-                rows={10}
-                placeholder='Post content goes here(optional)...'
-                autoGrow
-              />
+        <Formik initialValues={initialValues} onSubmit={onPostSubmit}>
+          <Form className={styles.postEditor}>
+            <Tile>
+              <div className={styles.post}>
+                <Field name='title'>
+                  {({ field }: FieldProps) => (
+                    <Textarea
+                      className={styles.postTitle}
+                      rows={1}
+                      placeholder='Post title goes here ...'
+                      autoGrow
+                      {...field}
+                    />
+                  )}
+                </Field>
+                <Field name='text'>
+                  {({ field }: FieldProps) => (
+                    <Textarea
+                      className={styles.postContent}
+                      rows={10}
+                      placeholder='Post content goes here(optional)...'
+                      autoGrow
+                      {...field}
+                    />
+                  )}
+                </Field>
+              </div>
+            </Tile>
+            <div className={styles.controls}>
+              <Button type='submit'>Submit</Button>
+              <Button variant='secondary'>Cancel</Button>
             </div>
-          </Tile>
-          <div className={styles.controls}>
-            <Button>Submit</Button>
-            <Button variant='secondary'>Cancel</Button>
-          </div>
-        </div>
+          </Form>
+        </Formik>
       </div>
     </div>
   );
