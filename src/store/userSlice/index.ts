@@ -11,7 +11,7 @@ import {
   updateUserProfile,
 } from '@/api/user';
 import { auth } from '@/lib/firebase';
-import { RootState } from '@/store';
+import { RootState } from '@/types/redux';
 import { NormalizedError, normalizeError } from '@/utils/api-error';
 import { errorCodeToMessage, isUserInputError } from '@/utils/user-input-error';
 

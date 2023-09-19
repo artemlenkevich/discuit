@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { RootState } from '@/store';
 import { Modals } from '@/types/modals';
+import { RootState } from '@/types/redux';
 
 type UserState = {
   [key in keyof typeof Modals]: boolean;
