@@ -29,12 +29,12 @@ export const addPostThunk = createAsyncThunk<
 >('posts/addPostThunk', async ({ title, text }, { getState }) => {
   try {
     const {
-      user: { name },
+      user: { name, uid },
     } = getState();
-    if (!name) {
+    if (!name || !uid) {
       throw new Error('User is not authorized');
     }
-    await addPost({ title, text, creator: name });
+    await addPost({ title, text, name, uid });
   } catch (e) {
     // dispatch(setError(normalizeError(e)));
     console.log(e);

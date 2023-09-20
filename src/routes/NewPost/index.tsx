@@ -5,10 +5,10 @@ import { Button } from '@/components/ui/Button';
 import { CloseButton } from '@/components/ui/CloseButton';
 import { Textarea } from '@/components/ui/Textarea/indext';
 import { Tile } from '@/components/ui/Tile';
-
-import styles from './NewPost.module.scss';
 import { useAppDispatch } from '@/hooks/store';
 import { addPostThunk } from '@/store/postsSlice';
+
+import styles from './NewPost.module.scss';
 
 interface PostValues {
   title: string;
@@ -73,7 +73,9 @@ export const NewPost: React.FC = () => {
             </Tile>
             <div className={styles.controls}>
               <Button type='submit'>Submit</Button>
-              <Button variant='secondary'>Cancel</Button>
+              <Button onClick={onCloseClick} variant='secondary'>
+                Cancel
+              </Button>
             </div>
           </Form>
         </Formik>

@@ -1,18 +1,20 @@
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 
 import { db } from '@/lib/firebase';
 
 interface AddPostOptions {
   title: string;
   text: string;
-  creator: string;
+  name: string;
+  uid: string;
 }
 
-export const addPost = async ({ title, text, creator }: AddPostOptions) => {
+export const addPost = async ({ title, text, name, uid }: AddPostOptions) => {
   const postRef = await addDoc(collection(db, 'posts'), {
     title,
     text,
-    creator,
+    name,
+    uid,
   });
 
   return postRef;
