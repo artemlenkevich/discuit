@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Timestamp } from 'firebase/firestore';
 
-import { addPost } from '@/api/posts';
+import { addPost, getPosts } from '@/api/posts';
 import { AppDispatch, RootState } from '@/types/redux';
 
 interface AddPostOptions {
@@ -8,18 +9,36 @@ interface AddPostOptions {
   text: string;
 }
 
+export interface Post {
+  title: string;
+  text: string;
+  name: string;
+  uid: string;
+  createdAt: number;
+  id: string;
+}
+
 type PostsState = {
-  posts: any;
+  posts: Post[];
+  limit: number;
 };
 
 const initialState: PostsState = {
-  posts: null,
+  posts: [],
+  limit: 10,
 };
 
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    setPosts: (state, action) => {
+      state.posts = state.posts.concat(action.payload);
+    },
+    clearPosts: (state) => {
+      state.posts = [];
+    },
+  },
 });
 
 export const addPostThunk = createAsyncThunk<
@@ -41,8 +60,33 @@ export const addPostThunk = createAsyncThunk<
   }
 });
 
-// export const {} = postsSlice.actions;
+export const getPostsThunk = createAsyncThunk<
+  void,
+  void,
+  { dispatch: AppDispatch; state: RootState }
+>('posts/addPostThunk', async (_, { getState, dispatch }) => {
+  try {
+    const {
+      posts: { limit, posts },
+    } = getState();
+
+    const lastDoc = posts.at(-1);
+    let lastDocParam: Timestamp | undefined;
+
+    if (lastDoc) {
+      lastDocParam = Timestamp.fromMillis(lastDoc.createdAt);
+    }
+
+    const newPosts = await getPosts({ lastDocParam, limitNumber: limit });
+    dispatch(setPosts(newPosts));
+  } catch (e) {
+    // dispatch(setError(normalizeError(e)));
+    console.log(e);
+  }
+});
+
+export const { setPosts, clearPosts } = postsSlice.actions;
 
 export const { reducer: postsReducer } = postsSlice;
 
-export const selectPosts = (state: RootState) => state.posts;
+export const selectPosts = (state: RootState) => state.posts.posts;
