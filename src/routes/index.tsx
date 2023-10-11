@@ -14,7 +14,7 @@ import { NewPost } from './NewPost';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='/' element={<MainLayout />}>
+      <Route element={<MainLayout />}>
         <Route element={<FeedLayout />}>
           <Route path='/' element={<Home />}></Route>
           <Route path='subscriptions' element={<div>subscriptions</div>}></Route>
