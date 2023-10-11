@@ -1,0 +1,21 @@
+@use 'src/scss/variables.scss' as v;
+@use 'src/scss/utils' ;
+
+.layout {
+  background-color: v.$color-body;
+  min-height: calc(100vh - 50px);
+}
+
+.container {
+  padding: 15px 15px 0;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: auto 315px;
+}
+
+.rightSidebar {
+  grid-column-start: 2;
+}

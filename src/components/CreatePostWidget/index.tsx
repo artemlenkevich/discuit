@@ -12,7 +12,7 @@ export const CreatePostWidget: React.FC = () => {
       <p className={styles.text}>
         Discuit is a place where 2987 people get together to find cool stuff and discuss things.
       </p>
-      <Link to='new'>
+      <Link to='/new'>
         <Button fullWidth>Create post</Button>
       </Link>
     </Tile>

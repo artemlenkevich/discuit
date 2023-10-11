@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { Button } from '../ui/Button';
 import { Tile } from '../ui/Tile';
 
@@ -8,9 +10,10 @@ interface PostWidgetProps {
   title: string;
   name: string;
   createdAt: number;
+  id: string;
 }
 
-export const PostWidget: React.FC<PostWidgetProps> = ({ title, name, createdAt }) => {
+export const PostWidget: React.FC<PostWidgetProps> = ({ id, title, name, createdAt }) => {
   return (
     <Tile className={styles.root}>
       <div className={styles.head}>
@@ -18,11 +21,13 @@ export const PostWidget: React.FC<PostWidgetProps> = ({ title, name, createdAt }
         <div className={styles.date}>6 hours ago</div>
       </div>
       <div className={styles.content}>
-        <div className={styles.title}>{title}</div>
+        <div className={styles.title}>
+          <Link to={`/posts/${id}`}>{title}</Link>
+        </div>
       </div>
       <div className={styles.comments}>
         <Button startIcon={<PostsIcon />} variant='text'>
-          22 comments
+          0 comments
         </Button>
       </div>
     </Tile>

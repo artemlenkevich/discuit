@@ -35,6 +35,9 @@
   font-size: v.$fs-xl;
   font-weight: 600;
   color: v.$color-text;
+  &:hover {
+    color: v.$color-link;
+  }
 }
 
 .comments {

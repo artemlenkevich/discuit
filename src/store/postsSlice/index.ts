@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Timestamp } from 'firebase/firestore';
 
-import { addPost, getPosts } from '@/api/posts';
+import { addPost, getPost, getPosts } from '@/api/posts';
 import { AppDispatch, RootState } from '@/types/redux';
 
 interface AddPostOptions {
@@ -20,12 +20,14 @@ export interface Post {
 
 type PostsState = {
   posts: Post[];
+  post: Post | null;
   limit: number;
 };
 
 const initialState: PostsState = {
   posts: [],
   limit: 10,
+  post: null,
 };
 
 export const postsSlice = createSlice({
@@ -37,6 +39,9 @@ export const postsSlice = createSlice({
     },
     clearPosts: (state) => {
       state.posts = [];
+    },
+    setPost: (state, action) => {
+      state.post = action.payload;
     },
   },
 });
@@ -85,8 +90,23 @@ export const getPostsThunk = createAsyncThunk<
   }
 });
 
-export const { setPosts, clearPosts } = postsSlice.actions;
+export const getPostThunk = createAsyncThunk<
+  void,
+  { postId: string },
+  { dispatch: AppDispatch; state: RootState }
+>('posts/getPostThunk', async ({ postId }, { getState, dispatch }) => {
+  try {
+    const post = await getPost({ postId });
+    dispatch(setPost(post));
+  } catch (e) {
+    // dispatch(setError(normalizeError(e)));
+    console.log(e);
+  }
+});
+
+export const { setPosts, clearPosts, setPost } = postsSlice.actions;
 
 export const { reducer: postsReducer } = postsSlice;
 
 export const selectPosts = (state: RootState) => state.posts.posts;
+export const selectPost = (state: RootState) => state.posts.post;

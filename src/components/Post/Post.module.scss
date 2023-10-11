@@ -1,0 +1,38 @@
+@use 'src/scss/variables.scss' as v;
+
+.root {
+  padding: 12px 20px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+@mixin postedDetail {
+  font-family: v.$font;
+  font-size: v.$fs-xs;
+  font-weight: 400;
+  color: v.$color-text-light;
+}
+
+.postedBy {
+  @include postedDetail();
+}
+
+.date {
+  @include postedDetail();
+}
+
+.content {
+  margin-bottom: 5px;
+}
+
+.title {
+  font-family: v.$font;
+  font-size: v.$fs-xl;
+  font-weight: 600;
+  color: v.$color-text;
+}

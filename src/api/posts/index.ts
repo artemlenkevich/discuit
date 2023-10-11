@@ -9,6 +9,7 @@ import {
   serverTimestamp,
   startAfter,
   setDoc,
+  getDoc,
 } from 'firebase/firestore';
 
 import { db } from '@/lib/firebase';
@@ -24,6 +25,10 @@ interface AddPostOptions {
 interface GetPostsOptions {
   lastDocParam: unknown;
   limitNumber: number;
+}
+
+interface GetPostOptions {
+  postId: string;
 }
 
 interface PostDoc {
@@ -73,6 +78,26 @@ export const getPosts = async ({ lastDocParam, limitNumber }: GetPostsOptions) =
     });
 
     return posts;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const getPost = async ({ postId }: GetPostOptions) => {
+  try {
+    const docRef = doc(db, 'posts', postId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const postDoc = docSnap.data() as PostDoc;
+      const { createdAt, ...rest } = postDoc;
+      const createdAtTimestamp = createdAt.toMillis();
+      const post = { ...rest, createdAt: createdAtTimestamp };
+      return post;
+    } else {
+      // docSnap.data() will be undefined in this case
+      throw new Error('No such document exists');
+    }
   } catch (err) {
     console.error(err);
     throw err;

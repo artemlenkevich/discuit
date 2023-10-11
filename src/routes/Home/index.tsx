@@ -24,14 +24,22 @@ export const Home: React.FC = () => {
     return () => {
       dispatch(clearPosts());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
       <SelectBar />
       <div className={styles.posts}>
         {posts.map((p) => {
-          return <PostWidget key={p.id} name={p.name} createdAt={p.createdAt} title={p.title} />;
+          return (
+            <PostWidget
+              key={p.id}
+              id={p.id}
+              name={p.name}
+              createdAt={p.createdAt}
+              title={p.title}
+            />
+          );
         })}
         <div key='observer' ref={observerTarget}></div>
       </div>
