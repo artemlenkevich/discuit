@@ -44,16 +44,10 @@
 
 .search {
   width: 300px;
-  @include utils.breakpoint(md) {
-    display: none;
-  }
 }
 
 .burgerWrapper {
   margin-right: 15px;
-  @include utils.breakpoint(xl, min) {
-    display: none;
-  }
 }
 
 .right {
