@@ -1,5 +1,4 @@
 import {
-  Timestamp,
   collection,
   doc,
   getDocs,
@@ -14,33 +13,25 @@ import {
 
 import { db } from '@/lib/firebase';
 import { Post } from '@/store/postsSlice';
+import { PostDoc } from '@/types/models/posts/PostDoc';
 
-interface AddPostOptions {
+interface AddPostParams {
   title: string;
   text: string;
   name: string;
   uid: string;
 }
 
-interface GetPostsOptions {
+interface GetPostsParams {
   lastDocParam: unknown;
   limitNumber: number;
 }
 
-interface GetPostOptions {
+interface GetPostParams {
   postId: string;
 }
 
-interface PostDoc {
-  title: string;
-  text: string;
-  name: string;
-  uid: string;
-  id: string;
-  createdAt: Timestamp;
-}
-
-export const addPost = async ({ title, text, name, uid }: AddPostOptions) => {
+export const addPost = async ({ title, text, name, uid }: AddPostParams) => {
   const newPostRef = doc(collection(db, 'posts'));
 
   const postRef = await setDoc(newPostRef, {
@@ -55,7 +46,7 @@ export const addPost = async ({ title, text, name, uid }: AddPostOptions) => {
   return postRef;
 };
 
-export const getPosts = async ({ lastDocParam, limitNumber }: GetPostsOptions) => {
+export const getPosts = async ({ lastDocParam, limitNumber }: GetPostsParams) => {
   try {
     let postsQuery = query(
       collection(db, 'posts'),
@@ -84,7 +75,7 @@ export const getPosts = async ({ lastDocParam, limitNumber }: GetPostsOptions) =
   }
 };
 
-export const getPost = async ({ postId }: GetPostOptions) => {
+export const getPost = async ({ postId }: GetPostParams) => {
   try {
     const docRef = doc(db, 'posts', postId);
     const docSnap = await getDoc(docRef);

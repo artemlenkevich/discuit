@@ -3,8 +3,8 @@ import { FirebaseError } from 'firebase/app';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import {
-  LogInUserWithEmailAndPasswordOptions,
-  UpdateUserProfileOptions,
+  LogInUserWithEmailAndPasswordParams,
+  UpdateUserProfileParams,
   logOutUser,
   loginUserWithEmailAndPassword,
   registerUserWithEmailAndPassword,
@@ -25,7 +25,7 @@ interface UserState {
 
 type UpdateUserPayload = Pick<UserState, 'email' | 'name'>;
 
-interface RegisterUserWithEmailThunkOptions {
+interface RegisterUserWithEmailThunkParams {
   username: string;
   email: string;
   password: string;
@@ -67,7 +67,7 @@ export const userSlice = createSlice({
 
 export const registerUserWithEmailThunk = createAsyncThunk(
   'user/registerUserWithEmailThunk',
-  async ({ email, username, password }: RegisterUserWithEmailThunkOptions, { dispatch }) => {
+  async ({ email, username, password }: RegisterUserWithEmailThunkParams, { dispatch }) => {
     try {
       await registerUserWithEmailAndPassword({ email, password });
       await dispatch(updateUserProfileThunk({ username }));
@@ -84,7 +84,7 @@ export const registerUserWithEmailThunk = createAsyncThunk(
 
 export const logInUserWithEmailAndPasswordThunk = createAsyncThunk(
   'user/logInUserThunk',
-  async ({ email, password }: LogInUserWithEmailAndPasswordOptions, { dispatch }) => {
+  async ({ email, password }: LogInUserWithEmailAndPasswordParams, { dispatch }) => {
     try {
       await loginUserWithEmailAndPassword({ email, password });
     } catch (e) {
@@ -100,7 +100,7 @@ export const logInUserWithEmailAndPasswordThunk = createAsyncThunk(
 
 export const updateUserProfileThunk = createAsyncThunk(
   'user/updateUserProfileThunk',
-  async ({ username, photoURL }: UpdateUserProfileOptions, { dispatch }) => {
+  async ({ username, photoURL }: UpdateUserProfileParams, { dispatch }) => {
     try {
       const updatedUser = await updateUserProfile({ username, photoURL });
       const { displayName, email } = updatedUser;

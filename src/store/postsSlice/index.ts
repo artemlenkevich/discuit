@@ -4,7 +4,7 @@ import { Timestamp } from 'firebase/firestore';
 import { addPost, getPost, getPosts } from '@/api/posts';
 import { AppDispatch, RootState } from '@/types/redux';
 
-interface AddPostOptions {
+interface AddPostParams {
   title: string;
   text: string;
 }
@@ -48,7 +48,7 @@ export const postsSlice = createSlice({
 
 export const addPostThunk = createAsyncThunk<
   void,
-  AddPostOptions,
+  AddPostParams,
   { dispatch: AppDispatch; state: RootState }
 >('posts/addPostThunk', async ({ title, text }, { getState }) => {
   try {
