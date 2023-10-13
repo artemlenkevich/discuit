@@ -26,7 +26,7 @@ type PostsState = {
 
 const initialState: PostsState = {
   posts: [],
-  limit: 10,
+  limit: 15,
   post: null,
 };
 

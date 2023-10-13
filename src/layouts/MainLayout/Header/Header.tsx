@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { Burger } from '@/components/ui/Burger';
 import { Input } from '@/components/ui/Input';
 
@@ -6,7 +8,6 @@ import { UnauthorizedWidget } from '../UnauthorizedWidget';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './Header.module.scss';
-import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   onBurgerClick: () => void;
