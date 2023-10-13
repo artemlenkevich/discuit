@@ -9,6 +9,7 @@ import { FeedLayout, MainLayout } from '@/layouts';
 
 import { HomeRoute } from './HomeRoute';
 import { NewPostRoute } from './NewPostRoute';
+import { NotFoundRoute } from './NotFoundRoute';
 import { PostRoute } from './PostRoute';
 
 const router = createBrowserRouter(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
           <Route path='/post/:postId' element={<PostRoute />}></Route>
         </Route>
       </Route>
+      <Route path='*' element={<NotFoundRoute />}></Route>
       <Route path='/new' element={<NewPostRoute />}></Route>
     </>
   )

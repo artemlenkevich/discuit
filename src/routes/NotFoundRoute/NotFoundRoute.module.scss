@@ -1,0 +1,15 @@
+@use 'src/scss/variables.scss' as v;
+@use 'src/scss/utils' ;
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.title {
+  font-size: v.$fs-4xl;
+  color: v.$base-fg;
+  font-weight: 600;
+}
