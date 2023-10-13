@@ -1,5 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 
+import { MobileNavigation } from '@/components/MobileNavigation';
 import { Burger } from '@/components/ui/Burger';
 import { Input } from '@/components/ui/Input';
 import { Breakpoints } from '@/constants/breakpoints';
@@ -14,10 +16,19 @@ import { UnauthorizedWidget } from './UnauthorizedWidget';
 
 export const MainLayout: React.FC = () => {
   const { width } = useScreenSize();
+  const [showMobileNavigation, setShowMobileNavigation] = useState(false);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const showBurger = width < Breakpoints.xl;
   const showSearch = width > Breakpoints.md;
 
-  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const onMobileNavigationClose = () => {
+    setShowMobileNavigation(false);
+  };
+
+  const onBurgerClick = () => {
+    setShowMobileNavigation(true);
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -25,7 +36,7 @@ export const MainLayout: React.FC = () => {
           <div className={styles.left}>
             {showBurger && (
               <div className={styles.burgerWrapper}>
-                <Burger />
+                <Burger onClick={onBurgerClick} />
               </div>
             )}
             <a href='/' className={styles.logo}>
@@ -45,6 +56,7 @@ export const MainLayout: React.FC = () => {
       <div className={styles.content}>
         <Outlet />
       </div>
+      {showMobileNavigation && showBurger && <MobileNavigation onClose={onMobileNavigationClose} />}
     </>
   );
 };
