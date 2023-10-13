@@ -6,6 +6,7 @@ import { UnauthorizedWidget } from '../UnauthorizedWidget';
 
 import { ReactComponent as SearchLogo } from './assets/logo.svg';
 import styles from './Header.module.scss';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   onBurgerClick: () => void;
@@ -29,9 +30,9 @@ export const Header: React.FC<HeaderProps> = ({
               <Burger onClick={onBurgerClick} />
             </div>
           )}
-          <a href='/' className={styles.logo}>
+          <Link to='/' className={styles.logo}>
             Discuit
-          </a>
+          </Link>
           {isSearchShown && (
             <div className={styles.search}>
               <Input fullWidth startIcon={<SearchLogo />} type='text' placeholder='Search' />
