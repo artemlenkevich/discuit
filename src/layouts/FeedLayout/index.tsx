@@ -10,20 +10,30 @@ import styles from './FeedLayout.module.scss';
 
 export const FeedLayout: React.FC = () => {
   const { width } = useScreenSize();
-  const showNavigation = width > Breakpoints.xl;
+  const showLeftBar = width > Breakpoints.xl;
+  const showRightBar = width > Breakpoints.lg;
 
   return (
     <div className={styles.layout}>
-      <div className={cn(styles.container, { [styles.disableLeftBar]: !showNavigation })}>
-        {showNavigation && (
+      <div className={styles.container}>
+        {showLeftBar && (
           <div className={styles.leftSidebar}>
             <Navigation />
           </div>
         )}
-        <Outlet />
-        <div className={styles.rightSidebar}>
-          <CreatePostWidget />
-        </div>
+        <main
+          className={cn(styles.mainContent, {
+            [styles.disableLeftBar]: !showLeftBar,
+            [styles.disableRightBar]: !showRightBar,
+          })}
+        >
+          <Outlet />
+        </main>
+        {showRightBar && (
+          <div className={styles.rightSidebar}>
+            <CreatePostWidget />
+          </div>
+        )}
       </div>
     </div>
   );

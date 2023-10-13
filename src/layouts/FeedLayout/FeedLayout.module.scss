@@ -13,9 +13,16 @@
   width: 100%;
   display: grid;
   grid-gap: 15px;
-  grid-template-columns: 178px auto 295px;
+  grid-template-columns: minmax(0, 178px) auto minmax(0, 295px);
+}
 
+.mainContent {
+  grid-column: 2/3;
   &.disableLeftBar {
-    grid-template-columns: auto 295px;
+    grid-column-start: 1;
+  }
+
+  &.disableRightBar {
+    grid-column-end: 4;
   }
 }
