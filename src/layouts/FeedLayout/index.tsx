@@ -9,7 +9,7 @@ import useScreenSize from '@/hooks/useScreenSize';
 import styles from './FeedLayout.module.scss';
 
 export const FeedLayout: React.FC = () => {
-  const isPostRoute = useMatch('/posts/:postId');
+  const isPostRoute = useMatch('/post/:postId');
   const { width } = useScreenSize();
   const showLeftBar = width > Breakpoints.xl && !isPostRoute;
   const showRightBar = width > Breakpoints.lg;

@@ -8,7 +8,7 @@ import { Tile } from '@/components/ui/Tile';
 import { useAppDispatch } from '@/hooks/store';
 import { addPostThunk } from '@/store/postsSlice';
 
-import styles from './NewPost.module.scss';
+import styles from './NewPostRoute.module.scss';
 
 interface PostValues {
   title: string;
@@ -20,7 +20,7 @@ const initialValues: PostValues = {
   text: '',
 };
 
-export const NewPost: React.FC = () => {
+export const NewPostRoute: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

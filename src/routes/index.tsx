@@ -7,8 +7,8 @@ import {
 
 import { FeedLayout, MainLayout } from '@/layouts';
 
-import { Home } from './Home';
-import { NewPost } from './NewPost';
+import { HomeRoute } from './HomeRoute';
+import { NewPostRoute } from './NewPostRoute';
 import { PostRoute } from './PostRoute';
 
 const router = createBrowserRouter(
@@ -16,12 +16,12 @@ const router = createBrowserRouter(
     <>
       <Route element={<MainLayout />}>
         <Route element={<FeedLayout />}>
-          <Route path='/' element={<Home />}></Route>
+          <Route path='/' element={<HomeRoute />}></Route>
           <Route path='subscriptions' element={<div>subscriptions</div>}></Route>
-          <Route path='/posts/:postId' element={<PostRoute />}></Route>
+          <Route path='/post/:postId' element={<PostRoute />}></Route>
         </Route>
       </Route>
-      <Route path='/new' element={<NewPost />}></Route>
+      <Route path='/new' element={<NewPostRoute />}></Route>
     </>
   )
 );

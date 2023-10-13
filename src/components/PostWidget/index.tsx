@@ -22,7 +22,7 @@ export const PostWidget: React.FC<PostWidgetProps> = ({ id, title, name, created
       </div>
       <div className={styles.content}>
         <div className={styles.title}>
-          <Link to={`/posts/${id}`}>{title}</Link>
+          <Link to={`/post/${id}`}>{title}</Link>
         </div>
       </div>
       <div className={styles.comments}>
