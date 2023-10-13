@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useMatch } from 'react-router-dom';
 
 import { CreatePostWidget } from '@/components/CreatePostWidget';
 import { Navigation } from '@/components/Navigation';
@@ -9,8 +9,9 @@ import useScreenSize from '@/hooks/useScreenSize';
 import styles from './FeedLayout.module.scss';
 
 export const FeedLayout: React.FC = () => {
+  const isPostRoute = useMatch('/posts/:postId');
   const { width } = useScreenSize();
-  const showLeftBar = width > Breakpoints.xl;
+  const showLeftBar = width > Breakpoints.xl && !isPostRoute;
   const showRightBar = width > Breakpoints.lg;
 
   return (
