@@ -1,5 +1,5 @@
 @use 'src/scss/variables.scss' as v;
-@use 'src/scss/utils' ;
+@use 'src/scss/utils';
 
 .layout {
   background-color: v.$color-body;
@@ -14,4 +14,8 @@
   display: grid;
   grid-gap: 15px;
   grid-template-columns: 178px auto 295px;
+
+  &.disableLeftBar {
+    grid-template-columns: auto 295px;
+  }
 }

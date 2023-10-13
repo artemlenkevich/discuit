@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { Outlet } from 'react-router-dom';
 
 import { CreatePostWidget } from '@/components/CreatePostWidget';
@@ -13,8 +14,12 @@ export const FeedLayout: React.FC = () => {
 
   return (
     <div className={styles.layout}>
-      <div className={styles.container}>
-        <div className={styles.leftSidebar}>{showNavigation && <Navigation />}</div>
+      <div className={cn(styles.container, { [styles.disableLeftBar]: !showNavigation })}>
+        {showNavigation && (
+          <div className={styles.leftSidebar}>
+            <Navigation />
+          </div>
+        )}
         <Outlet />
         <div className={styles.rightSidebar}>
           <CreatePostWidget />
