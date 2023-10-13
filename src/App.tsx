@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import Modal from 'react-modal';
 import { Provider } from 'react-redux';
 
@@ -15,6 +16,7 @@ function App() {
       <AuthProvider>
         <AppRoutes />
         <Modals />
+        <Toaster />
       </AuthProvider>
     </Provider>
   );

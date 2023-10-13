@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Timestamp } from 'firebase/firestore';
 
 import { addPost, getPost, getPosts } from '@/api/posts';
+import { showErrorNotification } from '@/store/notificationsSlice';
 import { AppDispatch, RootState } from '@/types/redux';
+import { normalizeError } from '@/utils/api-error';
 
 interface AddPostParams {
   title: string;
@@ -50,7 +52,7 @@ export const addPostThunk = createAsyncThunk<
   void,
   AddPostParams,
   { dispatch: AppDispatch; state: RootState }
->('posts/addPostThunk', async ({ title, text }, { getState }) => {
+>('posts/addPostThunk', async ({ title, text }, { getState, dispatch }) => {
   try {
     const {
       user: { name, uid },
@@ -60,8 +62,7 @@ export const addPostThunk = createAsyncThunk<
     }
     await addPost({ title, text, name, uid });
   } catch (e) {
-    // dispatch(setError(normalizeError(e)));
-    console.log(e);
+    dispatch(showErrorNotification(normalizeError(e)));
   }
 });
 
