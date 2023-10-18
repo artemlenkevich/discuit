@@ -1,6 +1,6 @@
 @use 'src/scss/variables.scss' as v;
 
-.root {
+.wrapper {
   padding: 12px 20px;
 }
 
@@ -13,7 +13,6 @@
 
 @mixin postedDetail {
   font-family: v.$font;
-  font-size: v.$fs-xs;
   font-weight: 400;
   color: v.$color-text-light;
 }
@@ -36,3 +35,22 @@
   font-weight: 600;
   color: v.$color-text;
 }
+
+.separator {
+  background-color: v.$separator;
+  border: none;
+  height: 1px;
+}
+
+.commentsNumber {
+  margin-bottom: 12px;
+  font-family: v.$font;
+  font-size: v.$fs-l;
+  font-weight: 400;
+  color: v.$color-text;
+}
+
+.textarea {
+  margin-bottom: 12px;
+}
+

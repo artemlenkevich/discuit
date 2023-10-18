@@ -1,0 +1,102 @@
+@use 'src/scss/variables.scss' as v;
+
+.root {
+  display: flex;
+  gap: 10px;
+}
+
+.collapse {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  color: v.$collapse-color;
+  &:hover {
+    color: v.$collapse-hover-color;
+  }
+}
+
+.collapseToggle {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  &:after {
+    content: '';
+    width: 50%;
+    height: 1px;
+    background-color: currentColor; 
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &.open:before {
+    content: '';
+    height: 50%;
+    width: 1px;
+    background-color: currentColor;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.collapseLine {
+  flex-grow: 1;
+  width: 1px;
+  background-color: currentColor;
+}
+
+.content {
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 18px;
+}
+
+.extendedConten {
+  margin-top: 8px;
+}
+
+.author {
+  font-family: v.$font;
+  font-size: v.$fs-s;
+  font-weight: 600;
+  color: v.$color-text;
+}
+
+.date {
+  font-family: v.$font;
+  font-size: v.$fs-s;
+  font-weight: 400;
+  color: v.$color-text-light;
+}
+
+.comment {
+  margin-bottom: 8px;
+  font-family: v.$font;
+  font-size: v.$fs-l;
+  font-weight: 400;
+  color: v.$color-text;
+}
+
+.actions {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.replyBtn {
+  padding: 8px;
+  font-family: v.$font;
+  font-size: v.$fs-s;
+  font-weight: 600;
+  color: v.$button-color;
+}

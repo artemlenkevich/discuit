@@ -1,0 +1,29 @@
+@use 'src/scss/variables.scss' as v;
+
+.root {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  padding: 5px;
+  color: v.$button-color; 
+  & svg {
+    margin-right: 0;
+    width: 15px;
+    height: 15px;
+  }
+
+  &.upvote {
+    transform: rotate(180deg);
+  }
+}
+
+.number {
+  margin-left: 5px;
+  font-family: v.$font;
+  font-size: v.$fs-s;
+  font-weight: 600;
+  color: v.$color-text;
+}
