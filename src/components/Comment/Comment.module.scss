@@ -100,3 +100,9 @@
   font-weight: 600;
   color: v.$button-color;
 }
+
+.nested {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

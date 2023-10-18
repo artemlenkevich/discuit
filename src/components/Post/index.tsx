@@ -30,6 +30,7 @@ export const Post: React.FC<PostProps> = ({ id, title, name, createdAt }) => {
         <div className={styles.commentsTree}>
           <Comment prop='d'>
             <Comment prop='s' />
+            <Comment prop='s' />
           </Comment>
         </div>
       </div>
