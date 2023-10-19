@@ -10,7 +10,7 @@ interface CommentProps {
   prop: string;
 }
 
-export const Comment: React.FC<PropsWithChildren<CommentProps>> = ({ prop, children }) => {
+export const Comment: React.FC<PropsWithChildren<CommentProps>> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const onCollapseClick = () => {
     setIsOpen((prev) => !prev);

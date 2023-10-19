@@ -65,7 +65,7 @@
 
 .withStartIcon {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   & svg {
     margin-right: 15px;
