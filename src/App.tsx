@@ -10,6 +10,9 @@ import { store } from './store';
 
 Modal.setAppElement('#root');
 
+const a = 'some minor changes';
+console.log(a);
+
 function App() {
   return (
     <Provider store={store}>
