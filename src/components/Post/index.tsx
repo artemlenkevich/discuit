@@ -11,7 +11,7 @@ interface PostProps {
   id: string;
 }
 
-export const Post: React.FC<PostProps> = ({ id, title, name, createdAt }) => {
+export const Post: React.FC<PostProps> = ({ title, name }) => {
   return (
     <Tile className={styles.root}>
       <div className={styles.wrapper}>

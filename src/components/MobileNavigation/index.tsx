@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { Navigation } from '@/components/Navigation';
+import { useIsLocationHasChanged } from '@/hooks/useIsLocationChanged';
 
 import { CloseButton } from '../ui/CloseButton';
 
@@ -12,15 +12,12 @@ interface MobileNavigationProps {
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({ onClose }) => {
-  const { key } = useLocation();
-  const prevNavKey = useMemo(() => key, []);
-
+  const isLocationHasChanged = useIsLocationHasChanged();
   useEffect(() => {
-    const isNavigationClicked = key !== prevNavKey;
-    if (isNavigationClicked) {
+    if (isLocationHasChanged) {
       onClose();
     }
-  }, [key, prevNavKey, onClose]);
+  }, [onClose, isLocationHasChanged]);
 
   const onCloseClick = () => {
     onClose();

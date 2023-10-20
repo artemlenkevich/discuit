@@ -13,7 +13,7 @@ interface PostWidgetProps {
   id: string;
 }
 
-export const PostWidget: React.FC<PostWidgetProps> = ({ id, title, name, createdAt }) => {
+export const PostWidget: React.FC<PostWidgetProps> = ({ id, title, name }) => {
   return (
     <Tile className={styles.root}>
       <div className={styles.head}>
