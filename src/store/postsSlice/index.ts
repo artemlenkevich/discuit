@@ -95,7 +95,7 @@ export const getPostThunk = createAsyncThunk<
   void,
   { postId: string },
   { dispatch: AppDispatch; state: RootState }
->('posts/getPostThunk', async ({ postId }, { getState, dispatch }) => {
+>('posts/getPostThunk', async ({ postId }, { dispatch }) => {
   try {
     const post = await getPost({ postId });
     dispatch(setPost(post));
