@@ -5,19 +5,17 @@
 # https://docs.github.com/en/actions/automating-builds-and-tests
 # /building-and-testing-nodejs
 
-name: Firebase CI
+name: Build and Deploy to Firebase (push to a main branch)
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    environment: PROD
     strategy:
       matrix:
         node-version: [18.x]
@@ -29,7 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install -g npm
-    - name: npm install, build and test
+    - name: npm install, build
       run: |
         npm install
         CI="" npm run build
@@ -43,6 +41,7 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
+    environment: PROD
 
     steps:
       - uses: actions/checkout@v2
