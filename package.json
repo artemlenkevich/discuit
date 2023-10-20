@@ -35,9 +35,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "lint": "eslint ./src --cache",
-    "lint:fix": "eslint ./src --fix  --cache"
-  },
+    "lint": "eslint ./src --cache --cache-location ./node_modules/.cache",
+    "lint:fix": "eslint ./src --fix  --cache --cache-location ./node_modules/.cache"
+  }, 
   "eslintConfig": {
     "extends": [
       "react-app",
