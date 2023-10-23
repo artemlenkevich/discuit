@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { PostWidget } from '@/components/PostWidget';
 import { SelectBar } from '@/components/SelectBar';
@@ -11,14 +11,18 @@ import styles from './HomeRoute.module.scss';
 export const HomeRoute: React.FC = () => {
   const dispatch = useAppDispatch();
   const posts = useAppSelector(selectPosts);
-  const { observerTarget } = useIntersectionObserver({
-    intersectionHandler,
+  const ref = useRef<HTMLDivElement | null>(null);
+  const subscribe = useIntersectionObserver({
+    elementRef: ref,
     options: { threshold: 1 },
   });
 
-  function intersectionHandler() {
-    dispatch(getPostsThunk());
-  }
+  useEffect(() => {
+    function intersectionHandler() {
+      dispatch(getPostsThunk());
+    }
+    subscribe(intersectionHandler);
+  }, [dispatch, subscribe]);
 
   useEffect(() => {
     return () => {
@@ -41,7 +45,7 @@ export const HomeRoute: React.FC = () => {
             />
           );
         })}
-        <div key='observer' ref={observerTarget}></div>
+        <div key='observer' ref={ref}></div>
       </div>
     </div>
   );

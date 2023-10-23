@@ -1,34 +1,38 @@
-import { useEffect, useRef } from 'react';
+import { RefObject, useCallback, useEffect, useRef } from 'react';
 
 interface IntersectionObserverParams {
-  intersectionHandler: () => void;
-  options?: IntersectionObserverInit;
+  elementRef: RefObject<Element>;
+  options: IntersectionObserverInit;
 }
 
 export const useIntersectionObserver = ({
-  intersectionHandler,
-  options,
+  elementRef,
+  options: { threshold = 0, root = null, rootMargin = '0%' },
 }: IntersectionObserverParams) => {
-  const observerTarget = useRef(null);
+  const handlerRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        console.log('intersected');
-        intersectionHandler();
+    const observerParams = { threshold, root, rootMargin };
+    const observer = new IntersectionObserver(([entry]: IntersectionObserverEntry[]): void => {
+      if (entry.isIntersecting) {
+        handlerRef.current?.();
       }
-    }, options);
+    }, observerParams);
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
+    let observingElement: Element;
+    if (elementRef.current) {
+      observingElement = elementRef.current;
+      observer.observe(observingElement);
     }
 
     return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current);
-      }
+      observer.unobserve(observingElement);
     };
-  }, [observerTarget]);
+  }, [elementRef, threshold, root, rootMargin]);
 
-  return { observerTarget };
+  const memorizedSubscribe = useCallback((callback: () => void) => {
+    handlerRef.current = callback;
+  }, []);
+
+  return memorizedSubscribe;
 };
