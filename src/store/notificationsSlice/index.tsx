@@ -13,5 +13,5 @@ export const showErrorNotification = createAsyncThunk<
 >('notifications/showErrorNotification', async (e) => {
   console.error(e);
   const { message, name } = normalizeError(e);
-  toast.error(() => <ErrorNotification name={name} message={message} />, { duration: 100000 });
+  toast.error(() => <ErrorNotification name={name} message={message} />);
 });
