@@ -7,7 +7,7 @@ export const errorCodeToMessage = (code: string) => {
 };
 
 /* Check whether error was caused by user wrong input */
-export const isUserInputError = (e: unknown) => {
+export const isUserInputError = (e: unknown): e is FirebaseError => {
   if (e instanceof FirebaseError && e.code in userInputErrorCodes) {
     return true;
   }

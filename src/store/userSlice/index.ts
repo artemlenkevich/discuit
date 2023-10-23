@@ -1,5 +1,4 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { FirebaseError } from 'firebase/app';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import {
@@ -11,8 +10,9 @@ import {
   updateUserProfile,
 } from '@/api/user';
 import { auth } from '@/lib/firebase';
-import { RootState } from '@/types/redux';
-import { NormalizedError, normalizeError } from '@/utils/api-error';
+import { showErrorNotification } from '@/store/notificationsSlice';
+import { AppDispatch, RootState } from '@/types/redux';
+import { NormalizedError, normalizeError } from '@/utils/normalize-error';
 import { errorCodeToMessage, isUserInputError } from '@/utils/user-input-error';
 
 interface UserState {
@@ -29,6 +29,10 @@ interface RegisterUserWithEmailThunkParams {
   username: string;
   email: string;
   password: string;
+}
+
+interface ValidationError {
+  errorMessage: string;
 }
 
 const initialState = {
@@ -65,77 +69,81 @@ export const userSlice = createSlice({
   },
 });
 
-export const registerUserWithEmailThunk = createAsyncThunk(
-  'user/registerUserWithEmailThunk',
-  async ({ email, username, password }: RegisterUserWithEmailThunkParams, { dispatch }) => {
-    try {
-      await registerUserWithEmailAndPassword({ email, password });
-      await dispatch(updateUserProfileThunk({ username }));
-    } catch (e) {
-      if (e instanceof FirebaseError && isUserInputError(e)) {
-        /* Return an error message to handle in onSubmit handler */
-        return { errorMessage: errorCodeToMessage(e.code) };
+export const registerUserWithEmailThunk = createAsyncThunk<
+  ValidationError | void,
+  RegisterUserWithEmailThunkParams,
+  { dispatch: AppDispatch; state: RootState }
+>('user/registerUserWithEmailThunk', async ({ email, username, password }, { dispatch }) => {
+  try {
+    await registerUserWithEmailAndPassword({ email, password });
+    await dispatch(updateUserProfileThunk({ username }));
+  } catch (e) {
+    if (isUserInputError(e)) {
+      /* Return a validation error message to handle in onSubmit handler */
+      return { errorMessage: errorCodeToMessage(e.code) };
+    }
+
+    dispatch(showErrorNotification(e));
+  }
+});
+
+export const logInUserWithEmailAndPasswordThunk = createAsyncThunk<
+  ValidationError | void,
+  LogInUserWithEmailAndPasswordParams,
+  { dispatch: AppDispatch; state: RootState }
+>('user/logInUserThunk', async ({ email, password }, { dispatch }) => {
+  try {
+    await loginUserWithEmailAndPassword({ email, password });
+  } catch (e) {
+    if (isUserInputError(e)) {
+      /* Return a validation error message to handle in onSubmit handler */
+      return { errorMessage: errorCodeToMessage(e.code) };
+    }
+
+    dispatch(showErrorNotification(e));
+  }
+});
+
+export const updateUserProfileThunk = createAsyncThunk<
+  void,
+  UpdateUserProfileParams,
+  { dispatch: AppDispatch; state: RootState }
+>('user/updateUserProfileThunk', async ({ username, photoURL }, { dispatch }) => {
+  try {
+    const updatedUser = await updateUserProfile({ username, photoURL });
+    const { displayName, email } = updatedUser;
+
+    dispatch(updateUser({ name: displayName, email }));
+  } catch (e) {
+    dispatch(showErrorNotification(e));
+  }
+});
+
+export const subscribeAuthStateChanges = createAsyncThunk<
+  void,
+  void,
+  { dispatch: AppDispatch; state: RootState }
+>('user/subscribeAuthStateChanges', async (_, { dispatch }) => {
+  try {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const { email, displayName, uid } = user;
+
+        await dispatch(
+          setUser({
+            name: displayName,
+            email,
+            uid,
+          })
+        );
+      } else {
+        dispatch(unSetUser());
       }
-
-      dispatch(setError(normalizeError(e)));
-    }
+    });
+  } catch (e) {
+    dispatch(showErrorNotification(e));
   }
-);
-
-export const logInUserWithEmailAndPasswordThunk = createAsyncThunk(
-  'user/logInUserThunk',
-  async ({ email, password }: LogInUserWithEmailAndPasswordParams, { dispatch }) => {
-    try {
-      await loginUserWithEmailAndPassword({ email, password });
-    } catch (e) {
-      if (e instanceof FirebaseError && isUserInputError(e)) {
-        /* Return an error message to handle in onSubmit handler */
-        return { errorMessage: errorCodeToMessage(e.code) };
-      }
-
-      dispatch(setError(normalizeError(e)));
-    }
-  }
-);
-
-export const updateUserProfileThunk = createAsyncThunk(
-  'user/updateUserProfileThunk',
-  async ({ username, photoURL }: UpdateUserProfileParams, { dispatch }) => {
-    try {
-      const updatedUser = await updateUserProfile({ username, photoURL });
-      const { displayName, email } = updatedUser;
-
-      dispatch(updateUser({ name: displayName, email }));
-    } catch (e) {
-      dispatch(setError(normalizeError(e)));
-    }
-  }
-);
-
-export const subscribeAuthStateChanges = createAsyncThunk(
-  'user/subscribeAuthStateChanges',
-  async (_, { dispatch }) => {
-    try {
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          const { email, displayName, uid } = user;
-
-          await dispatch(
-            setUser({
-              name: displayName,
-              email,
-              uid,
-            })
-          );
-        } else {
-          dispatch(unSetUser());
-        }
-      });
-    } catch (e) {
-      dispatch(setError(normalizeError(e)));
-    }
-  }
-);
+});
 
 export const logOutUserThunk = createAsyncThunk('user/logOutUser', async (_, { dispatch }) => {
   try {

@@ -4,7 +4,6 @@ import { Timestamp } from 'firebase/firestore';
 import { addPost, getPost, getPosts } from '@/api/posts';
 import { showErrorNotification } from '@/store/notificationsSlice';
 import { AppDispatch, RootState } from '@/types/redux';
-import { normalizeError } from '@/utils/api-error';
 
 interface AddPostParams {
   title: string;
@@ -62,7 +61,7 @@ export const addPostThunk = createAsyncThunk<
     }
     await addPost({ title, text, name, uid });
   } catch (e) {
-    dispatch(showErrorNotification(normalizeError(e)));
+    dispatch(showErrorNotification(e));
   }
 });
 
@@ -86,8 +85,7 @@ export const getPostsThunk = createAsyncThunk<
     const newPosts = await getPosts({ lastDocParam, limitNumber: limit });
     dispatch(setPosts(newPosts));
   } catch (e) {
-    // dispatch(setError(normalizeError(e)));
-    console.log(e);
+    dispatch(showErrorNotification(e));
   }
 });
 
@@ -100,8 +98,7 @@ export const getPostThunk = createAsyncThunk<
     const post = await getPost({ postId });
     dispatch(setPost(post));
   } catch (e) {
-    // dispatch(setError(normalizeError(e)));
-    console.log(e);
+    dispatch(showErrorNotification(e));
   }
 });
 

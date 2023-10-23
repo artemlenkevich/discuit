@@ -56,8 +56,9 @@ export const getComments = async ({ postId }: GetCommentsParams) => {
       const createdAtTimestamp = createdAt.toMillis();
       comments.push({ ...rest, createdAt: createdAtTimestamp });
     });
-  } catch (e) {
-    console.warn(e);
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
 };
 
@@ -75,7 +76,8 @@ export const addComment = async ({ postId, parentId, author, text }: AddCommentP
     });
 
     return commentRef;
-  } catch (e) {
-    console.warn(e);
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
 };

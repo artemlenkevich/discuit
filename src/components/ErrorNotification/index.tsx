@@ -11,8 +11,8 @@ export const ErrorNotification: React.FC<ErrorNotificationProps> = ({
 }: ErrorNotificationProps) => {
   return (
     <div className={styles.root}>
-      <div>{name}</div>
-      <div>{message}</div>
+      <div className={styles.name}>{name}</div>
+      <div className={styles.message}>{message}</div>
     </div>
   );
 };
