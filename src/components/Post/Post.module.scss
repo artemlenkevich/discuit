@@ -50,7 +50,13 @@
   color: v.$color-text;
 }
 
-.textarea {
+.addCommentWrapper {
   margin-bottom: 12px;
+}
+
+.commentsTree {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 

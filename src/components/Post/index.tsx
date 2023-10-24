@@ -1,7 +1,17 @@
-import { Comment } from '@/components/Comment';
-import { Textarea } from '@/components/ui/Textarea/indext';
-import { Tile } from '@/components/ui/Tile';
+import { useEffect } from 'react';
 
+import { Tile } from '@/components/ui/Tile';
+import { useAppDispatch, useAppSelector } from '@/hooks/store';
+import {
+  clearComments,
+  getCommentsThunk,
+  selectComments,
+  selectCommentsLength,
+} from '@/store/commentsSlice';
+import { timestampToTimeAgo } from '@/utils/time/timestampToTimeAgo';
+
+import { Comment } from './Comment';
+import { NewComment } from './NewComment';
 import styles from './Post.module.scss';
 
 interface PostProps {
@@ -11,13 +21,25 @@ interface PostProps {
   id: string;
 }
 
-export const Post: React.FC<PostProps> = ({ title, name }) => {
+export const Post: React.FC<PostProps> = ({ title, name, id, createdAt }) => {
+  const dispatch = useAppDispatch();
+  const comments = useAppSelector(selectComments);
+  const commentsLength = useAppSelector(selectCommentsLength);
+
+  const timeAgo = timestampToTimeAgo(createdAt);
+
+  useEffect(() => {
+    dispatch(getCommentsThunk({ postId: id }));
+    return () => {
+      dispatch(clearComments());
+    };
+  }, [id, dispatch]);
   return (
     <Tile className={styles.root}>
       <div className={styles.wrapper}>
         <div className={styles.head}>
           <div className={styles.postedBy}>Posted by @{name}</div>
-          <div className={styles.date}>6 hours ago</div>
+          <div className={styles.date}>{timeAgo}</div>
         </div>
         <div className={styles.content}>
           <div className={styles.title}>{title}</div>
@@ -25,14 +47,17 @@ export const Post: React.FC<PostProps> = ({ title, name }) => {
       </div>
       <hr className={styles.separator} />
       <div className={styles.wrapper}>
-        <div className={styles.commentsNumber}>8 comments</div>
-        <Textarea className={styles.textarea} rows={5} autoGrow placeholder='Add a new comment' />
-        <div className={styles.commentsTree}>
-          <Comment prop='d'>
-            <Comment prop='s' />
-            <Comment prop='s' />
-          </Comment>
+        <div className={styles.commentsNumber}>{commentsLength} comments</div>
+        <div className={styles.addCommentWrapper}>
+          <NewComment postId={id} />
         </div>
+        {comments.length > 0 && (
+          <div className={styles.commentsTree}>
+            {comments.map((c) => {
+              return <Comment key={c.id} comment={c} />;
+            })}
+          </div>
+        )}
       </div>
     </Tile>
   );

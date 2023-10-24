@@ -7,6 +7,9 @@ import {
   setDoc,
   where,
   Timestamp,
+  orderBy,
+  addDoc,
+  getDoc,
 } from 'firebase/firestore';
 
 import { db } from '@/lib/firebase';
@@ -19,10 +22,11 @@ interface AddCommentParams {
   postId: string;
   parentId: string | null;
   author: string;
+  authorId: string;
   text: string;
 }
 
-interface Comment {
+export interface Comment {
   postId: string;
   parentId: string | null;
   author: string;
@@ -37,45 +41,41 @@ interface CommentDoc {
   author: string;
   text: string;
   createdAt: Timestamp;
-  id: string;
 }
 
 export const getComments = async ({ postId }: GetCommentsParams) => {
   try {
     const docRef = collection(db, 'comments');
-    const q = query(docRef, where('postId', '==', postId));
+    const q = query(docRef, where('postId', '==', postId), orderBy('createdAt', 'asc'));
     const querySnapshot = await getDocs(q);
 
     const comments = [] as Comment[];
 
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, ' => ', doc.data());
-
       const postDoc = doc.data() as CommentDoc;
       const { createdAt, ...rest } = postDoc;
       const createdAtTimestamp = createdAt.toMillis();
-      comments.push({ ...rest, createdAt: createdAtTimestamp });
+      comments.push({ ...rest, createdAt: createdAtTimestamp, id: doc.id });
     });
+
+    return comments;
   } catch (err) {
     console.error(err);
     throw err;
   }
 };
 
-export const addComment = async ({ postId, parentId, author, text }: AddCommentParams) => {
+export const addComment = async ({ postId, parentId = null, author, text }: AddCommentParams) => {
   try {
     const newCommentRef = doc(collection(db, 'comments'));
 
-    const commentRef = await setDoc(newCommentRef, {
+    await setDoc(newCommentRef, {
       postId,
       parentId,
       author,
       text,
       createdAt: serverTimestamp(),
-      id: newCommentRef.id,
     });
-
-    return commentRef;
   } catch (err) {
     console.error(err);
     throw err;
