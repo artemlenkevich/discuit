@@ -40,6 +40,7 @@ export const addPost = async ({ title, text, name, uid }: AddPostParams) => {
     name,
     uid,
     createdAt: serverTimestamp(),
+    commentsAmount: 0,
     id: newPostRef.id,
   });
 

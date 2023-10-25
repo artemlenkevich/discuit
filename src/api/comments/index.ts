@@ -4,12 +4,11 @@ import {
   getDocs,
   query,
   serverTimestamp,
-  setDoc,
   where,
   Timestamp,
   orderBy,
-  addDoc,
-  getDoc,
+  runTransaction,
+  increment,
 } from 'firebase/firestore';
 
 import { db } from '@/lib/firebase';
@@ -41,6 +40,7 @@ interface CommentDoc {
   author: string;
   text: string;
   createdAt: Timestamp;
+  id: string;
 }
 
 export const getComments = async ({ postId }: GetCommentsParams) => {
@@ -55,7 +55,7 @@ export const getComments = async ({ postId }: GetCommentsParams) => {
       const postDoc = doc.data() as CommentDoc;
       const { createdAt, ...rest } = postDoc;
       const createdAtTimestamp = createdAt.toMillis();
-      comments.push({ ...rest, createdAt: createdAtTimestamp, id: doc.id });
+      comments.push({ ...rest, createdAt: createdAtTimestamp });
     });
 
     return comments;
@@ -67,14 +67,22 @@ export const getComments = async ({ postId }: GetCommentsParams) => {
 
 export const addComment = async ({ postId, parentId = null, author, text }: AddCommentParams) => {
   try {
-    const newCommentRef = doc(collection(db, 'comments'));
+    await runTransaction(db, async (transaction) => {
+      const newCommentRef = doc(collection(db, 'comments'));
 
-    await setDoc(newCommentRef, {
-      postId,
-      parentId,
-      author,
-      text,
-      createdAt: serverTimestamp(),
+      await transaction.set(newCommentRef, {
+        postId,
+        parentId,
+        author,
+        text,
+        createdAt: serverTimestamp(),
+        id: newCommentRef.id,
+      });
+
+      const postRef = doc(db, 'posts', postId);
+      await transaction.update(postRef, {
+        commentsAmount: increment(1),
+      });
     });
   } catch (err) {
     console.error(err);
