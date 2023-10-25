@@ -1,12 +1,14 @@
 import cn from 'classnames';
-import { PropsWithChildren } from 'react';
+import React, { HTMLProps, Ref } from 'react';
 
 import styles from './Tile.module.scss';
 
-interface TileProps {
-  className?: string;
-}
-
-export const Tile: React.FC<PropsWithChildren<TileProps>> = ({ className, children }) => {
-  return <div className={cn(styles.tile, className)}>{children}</div>;
-};
+export const Tile = React.forwardRef(
+  ({ className, children, ...props }: HTMLProps<HTMLDivElement>, ref: Ref<HTMLDivElement>) => {
+    return (
+      <div className={cn(styles.tile, className)} ref={ref} {...props}>
+        {children}
+      </div>
+    );
+  }
+);

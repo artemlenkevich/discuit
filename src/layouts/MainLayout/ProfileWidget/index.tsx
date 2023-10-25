@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Tile } from '@/components/ui/Tile';
 import { useAppDispatch } from '@/hooks/store';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { logOutUserThunk } from '@/store/userSlice';
 
 import styles from './ProfileWidget.module.scss';
@@ -10,6 +11,7 @@ import styles from './ProfileWidget.module.scss';
 export const ProfileWidget: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const profileWidgetRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
 
   const onWidgetClick = () => {
     setIsOpen((prevState) => !prevState);
@@ -21,6 +23,7 @@ export const ProfileWidget: React.FC = () => {
 
   return (
     <div
+      ref={profileWidgetRef}
       role='button'
       className={styles.root}
       onClick={onWidgetClick}
