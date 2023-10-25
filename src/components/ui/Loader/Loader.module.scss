@@ -1,0 +1,53 @@
+@use 'src/scss/variables.scss' as v;
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.root {
+  width: 100px;
+  height: 100px;
+  border: solid 10px v.$color-brand;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  transition: all 0.5s ease-in;
+  animation-name: rotate;
+  animation-duration: 1.0s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  &.sm {
+    width: 50px;
+    height: 50px;
+    border-width: 5px;
+  }
+
+  &.md {
+    width: 100px;
+    height: 100px;
+  }
+
+  &.lg {
+    width: 200px;
+    height: 200px;
+    border-width: 20px;
+  }
+}

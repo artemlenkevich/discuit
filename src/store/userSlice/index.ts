@@ -15,6 +15,8 @@ import { AppDispatch, RootState } from '@/types/redux';
 import { NormalizedError, normalizeError } from '@/utils/normalize-error';
 import { errorCodeToMessage, isUserInputError } from '@/utils/user-input-error';
 
+import { setIsInitialized } from '../systemSlice';
+
 interface UserState {
   isAuthenticated: boolean;
   email: string | null;
@@ -126,6 +128,7 @@ export const subscribeAuthStateChanges = createAsyncThunk<
 >('user/subscribeAuthStateChanges', async (_, { dispatch }) => {
   try {
     onAuthStateChanged(auth, async (user) => {
+      dispatch(setIsInitialized(true));
       if (user) {
         const { email, displayName, uid } = user;
 
