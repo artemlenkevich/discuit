@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
@@ -6,6 +5,7 @@ import * as Yup from 'yup';
 import { Button } from '@/components/ui/Button';
 import { Textarea } from '@/components/ui/Textarea/indext';
 import { useAppDispatch } from '@/hooks/store';
+import { validationConfig } from '@/lib/validationConfig';
 import { addCommentThunk, getCommentsThunk } from '@/store/commentsSlice';
 
 import styles from './NewComment.module.scss';
@@ -17,10 +17,7 @@ interface NewCommentProps {
 }
 
 const validationSchema = Yup.object({
-  text: Yup.string()
-    .max(150, 'Must be 150 characters or less')
-    .min(3, 'Must be 3 characters or more')
-    .required('Required'),
+  text: validationConfig.comment,
 });
 
 export const NewComment: React.FC<NewCommentProps> = ({ postId, parentId = null, onCancel }) => {

@@ -1,1 +1,0 @@
-export { validationConfig } from './validationConfig';

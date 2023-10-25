@@ -4,12 +4,12 @@ import * as Yup from 'yup';
 
 import { Button } from '@/components/ui/Button';
 import { useAppDispatch, useAppSelector } from '@/hooks/store';
+import { validationConfig } from '@/lib/validationConfig';
 import { closeModal, openModal, selectModals } from '@/store/modalsSlice';
 import { registerUserWithEmailThunk } from '@/store/userSlice';
 import { Modals } from '@/types/modals';
 
 import { BaseModal } from '../BaseModal';
-import { validationConfig } from '../lib';
 import { ModalInput } from '../ModalInput';
 
 import styles from './SignUpModal.module.scss';
