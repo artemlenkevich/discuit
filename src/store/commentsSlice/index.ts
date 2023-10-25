@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { Comment, addComment, getComments } from '@/api/comments';
+import { NotAuthorized } from '@/errors/not-authorized';
 import { buildCommentTree } from '@/store/commentsSlice/utils/buildCommentTree';
 import { showErrorNotification } from '@/store/notificationsSlice';
 import { selectUser } from '@/store/userSlice';
@@ -56,7 +57,7 @@ export const addCommentThunk = createAsyncThunk<
     const userState = selectUser(state);
     const { name, uid } = userState;
     if (!name || !uid) {
-      throw new Error('User is not authorized');
+      throw new NotAuthorized();
     }
     await addComment({ postId, parentId, text, author: name, authorId: uid });
   } catch (e) {

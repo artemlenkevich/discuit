@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Timestamp } from 'firebase/firestore';
 
 import { addPost, getPost, getPosts } from '@/api/posts';
+import { NotAuthorized } from '@/errors/not-authorized';
 import { showErrorNotification } from '@/store/notificationsSlice';
 import { AppDispatch, RootState } from '@/types/redux';
 
@@ -57,7 +58,7 @@ export const addPostThunk = createAsyncThunk<
       user: { name, uid },
     } = getState();
     if (!name || !uid) {
-      throw new Error('User is not authorized');
+      throw new NotAuthorized();
     }
     await addPost({ title, text, name, uid });
   } catch (e) {
