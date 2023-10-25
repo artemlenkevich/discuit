@@ -55,6 +55,7 @@ export const LogInModal: React.FC = () => {
           setErrorMessage(args.errorMessage);
         } else {
           resetForm();
+          dispatch(closeModal(Modals.logInModal));
         }
       });
   };

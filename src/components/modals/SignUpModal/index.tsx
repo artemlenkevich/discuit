@@ -60,6 +60,7 @@ export const SignUpModal: React.FC = () => {
           setErrorMessage(args.errorMessage);
         } else {
           resetForm();
+          dispatch(closeModal(Modals.signUpModal));
         }
       });
   };
