@@ -1,11 +1,13 @@
 import { Field, FieldProps, Form, Formik, FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import { Button } from '@/components/ui/Button';
 import { CloseButton } from '@/components/ui/CloseButton';
 import { Textarea } from '@/components/ui/Textarea/indext';
 import { Tile } from '@/components/ui/Tile';
 import { useAppDispatch } from '@/hooks/store';
+import { validationConfig } from '@/lib/validationConfig';
 import { addPostThunk } from '@/store/postsSlice';
 
 import styles from './NewPostRoute.module.scss';
@@ -19,6 +21,13 @@ const initialValues: PostValues = {
   title: '',
   text: '',
 };
+
+const { postTitle, postText } = validationConfig;
+
+const validationSchema = Yup.object({
+  title: postTitle,
+  text: postText,
+});
 
 export const NewPostRoute: React.FC = () => {
   const navigate = useNavigate();
@@ -43,7 +52,11 @@ export const NewPostRoute: React.FC = () => {
           <h1 className={styles.header}>Create a post</h1>
           <CloseButton onClick={onCloseClick} />
         </div>
-        <Formik initialValues={initialValues} onSubmit={onPostSubmit}>
+        <Formik
+          initialValues={initialValues}
+          // validationSchema={validationSchema}
+          onSubmit={onPostSubmit}
+        >
           <Form className={styles.postEditor}>
             <Tile>
               <div className={styles.post}>

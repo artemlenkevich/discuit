@@ -11,4 +11,6 @@ export const validationConfig = {
     .max(300, 'Must be 300 characters or less')
     .min(3, 'Must be 3 characters or more')
     .required('Required'),
+  postTitle: Yup.string().min(6, 'Must be 6 characters or more').required('Required'),
+  postText: Yup.string().min(20, 'Must be 20 characters or more').required('Required'),
 };
