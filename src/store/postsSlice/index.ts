@@ -51,7 +51,7 @@ export const addPostThunk = createAsyncThunk<
     if (!name || !uid) {
       throw new NotAuthorized();
     }
-    await addPost({ title, text, name, uid });
+    await addPost({ title, text, author: name, authorId: uid });
   } catch (e) {
     dispatch(showErrorNotification(e));
   }

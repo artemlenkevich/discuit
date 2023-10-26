@@ -12,13 +12,15 @@ import {
 } from 'firebase/firestore';
 
 import { db } from '@/lib/firebase';
-import { PostDoc } from '@/types/models/posts/PostDoc';
+import { GetPostResData } from '@/types/enpoints/posts/getPost';
+import { GetPostsResData } from '@/types/enpoints/posts/getPosts';
+import { SetPostReqData } from '@/types/enpoints/posts/setPost';
 
 interface AddPostParams {
   title: string;
   text: string;
-  name: string;
-  uid: string;
+  author: string;
+  authorId: string;
 }
 
 interface GetPostsParams {
@@ -26,7 +28,7 @@ interface GetPostsParams {
   limitNumber: number;
 }
 
-export interface Post extends Omit<PostDoc, 'createdAt'> {
+export interface Post extends Omit<GetPostsResData, 'createdAt'> {
   createdAt: number;
 }
 
@@ -34,20 +36,20 @@ interface GetPostParams {
   postId: string;
 }
 
-export const addPost = async ({ title, text, name, uid }: AddPostParams) => {
+export const addPost = async ({ title, text, author, authorId }: AddPostParams) => {
   const newPostRef = doc(collection(db, 'posts'));
 
-  const postRef = await setDoc(newPostRef, {
+  const postData: SetPostReqData = {
     title,
     text,
-    name,
-    uid,
+    author,
+    authorId,
     createdAt: serverTimestamp(),
     commentsAmount: 0,
     id: newPostRef.id,
-  });
+  };
 
-  return postRef;
+  await setDoc(newPostRef, postData);
 };
 
 export const getPosts = async ({ lastDocParam, limitNumber }: GetPostsParams) => {
@@ -66,7 +68,7 @@ export const getPosts = async ({ lastDocParam, limitNumber }: GetPostsParams) =>
     const posts = [] as Post[];
 
     querySnapshot.forEach((doc) => {
-      const postDoc = doc.data() as PostDoc;
+      const postDoc = doc.data() as GetPostsResData;
       const { createdAt, ...rest } = postDoc;
       const createdAtTimestamp = createdAt.toMillis();
       posts.push({ ...rest, createdAt: createdAtTimestamp });
@@ -84,7 +86,7 @@ export const getPost = async ({ postId }: GetPostParams) => {
     const docRef = doc(db, 'posts', postId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      const postDoc = docSnap.data() as PostDoc;
+      const postDoc = docSnap.data() as GetPostResData;
       const { createdAt, ...rest } = postDoc;
       const createdAtTimestamp = createdAt.toMillis();
       const post = { ...rest, createdAt: createdAtTimestamp };
