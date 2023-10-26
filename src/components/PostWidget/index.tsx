@@ -10,7 +10,7 @@ import styles from './PostWidget.module.scss';
 
 interface PostWidgetProps {
   title: string;
-  name: string;
+  author: string;
   createdAt: number;
   commentsAmount: number;
   id: string;
@@ -19,7 +19,7 @@ interface PostWidgetProps {
 export const PostWidget: React.FC<PostWidgetProps> = ({
   id,
   title,
-  name,
+  author,
   commentsAmount,
   createdAt,
 }) => {
@@ -28,7 +28,7 @@ export const PostWidget: React.FC<PostWidgetProps> = ({
   return (
     <Tile className={styles.root}>
       <div className={styles.head}>
-        <div className={styles.postedBy}>Posted by @{name}</div>
+        <div className={styles.postedBy}>Posted by @{author}</div>
         <div className={styles.date}>{timeAgo}</div>
       </div>
       <div className={styles.content}>

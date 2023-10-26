@@ -20,7 +20,9 @@ export const PostRoute: React.FC = () => {
 
   return (
     <div className={styles.root}>
-      {post && <Post title={post.title} name={post.name} createdAt={post.createdAt} id={post.id} />}
+      {post && (
+        <Post title={post.title} author={post.author} createdAt={post.createdAt} id={post.id} />
+      )}
     </div>
   );
 };

@@ -39,7 +39,7 @@ export const HomeRoute: React.FC = () => {
             <PostWidget
               key={p.id}
               id={p.id}
-              name={p.name}
+              author={p.author}
               createdAt={p.createdAt}
               title={p.title}
               commentsAmount={p.commentsAmount}

@@ -16,12 +16,12 @@ import styles from './Post.module.scss';
 
 interface PostProps {
   title: string;
-  name: string;
+  author: string;
   createdAt: number;
   id: string;
 }
 
-export const Post: React.FC<PostProps> = ({ title, name, id, createdAt }) => {
+export const Post: React.FC<PostProps> = ({ title, author, id, createdAt }) => {
   const dispatch = useAppDispatch();
   const comments = useAppSelector(selectComments);
   const commentsLength = useAppSelector(selectCommentsLength);
@@ -38,7 +38,7 @@ export const Post: React.FC<PostProps> = ({ title, name, id, createdAt }) => {
     <Tile className={styles.root}>
       <div className={styles.wrapper}>
         <div className={styles.head}>
-          <div className={styles.postedBy}>Posted by @{name}</div>
+          <div className={styles.postedBy}>Posted by @{author}</div>
           <div className={styles.date}>{timeAgo}</div>
         </div>
         <div className={styles.content}>

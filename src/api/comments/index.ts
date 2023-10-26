@@ -5,14 +5,14 @@ import {
   query,
   serverTimestamp,
   where,
-  Timestamp,
   orderBy,
   runTransaction,
   increment,
 } from 'firebase/firestore';
 
 import { db } from '@/lib/firebase';
-import { CommentDoc } from '@/types/models/comments/CommentDoc';
+import { GetCommentsResData } from '@/types/enpoints/comments/getComments';
+import { SetCommentReqData } from '@/types/enpoints/comments/setComment';
 
 interface GetCommentsParams {
   postId: string;
@@ -26,7 +26,7 @@ interface AddCommentParams {
   text: string;
 }
 
-export interface Comment extends Omit<CommentDoc, 'createdAt'> {
+export interface Comment extends Omit<GetCommentsResData, 'createdAt'> {
   createdAt: number;
 }
 
@@ -39,7 +39,7 @@ export const getComments = async ({ postId }: GetCommentsParams) => {
     const comments = [] as Comment[];
 
     querySnapshot.forEach((doc) => {
-      const postDoc = doc.data() as CommentDoc;
+      const postDoc = doc.data() as GetCommentsResData;
       const { createdAt, ...rest } = postDoc;
       const createdAtTimestamp = createdAt.toMillis();
       comments.push({ ...rest, createdAt: createdAtTimestamp });
@@ -52,19 +52,28 @@ export const getComments = async ({ postId }: GetCommentsParams) => {
   }
 };
 
-export const addComment = async ({ postId, parentId = null, author, text }: AddCommentParams) => {
+export const addComment = async ({
+  postId,
+  parentId = null,
+  author,
+  text,
+  authorId,
+}: AddCommentParams) => {
   try {
     await runTransaction(db, async (transaction) => {
       const newCommentRef = doc(collection(db, 'comments'));
 
-      await transaction.set(newCommentRef, {
+      const commentData: SetCommentReqData = {
+        id: newCommentRef.id,
         postId,
         parentId,
         author,
+        authorId,
         text,
         createdAt: serverTimestamp(),
-        id: newCommentRef.id,
-      });
+      };
+
+      await transaction.set(newCommentRef, commentData);
 
       const postRef = doc(db, 'posts', postId);
       await transaction.update(postRef, {
