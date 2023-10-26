@@ -42,6 +42,7 @@ export const HomeRoute: React.FC = () => {
               name={p.name}
               createdAt={p.createdAt}
               title={p.title}
+              commentsAmount={p.commentsAmount}
             />
           );
         })}

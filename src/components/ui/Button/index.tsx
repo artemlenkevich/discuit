@@ -9,7 +9,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   startIcon?: ReactElement;
   underline?: boolean;
   as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
-  children?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
