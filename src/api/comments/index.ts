@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore';
 
 import { db } from '@/lib/firebase';
+import { CommentDoc } from '@/types/models/comments/CommentDoc';
 
 interface GetCommentsParams {
   postId: string;
@@ -25,22 +26,8 @@ interface AddCommentParams {
   text: string;
 }
 
-export interface Comment {
-  postId: string;
-  parentId: string | null;
-  author: string;
-  text: string;
+export interface Comment extends Omit<CommentDoc, 'createdAt'> {
   createdAt: number;
-  id: string;
-}
-
-interface CommentDoc {
-  postId: string;
-  parentId: string | null;
-  author: string;
-  text: string;
-  createdAt: Timestamp;
-  id: string;
 }
 
 export const getComments = async ({ postId }: GetCommentsParams) => {

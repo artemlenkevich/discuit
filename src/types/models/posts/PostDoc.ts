@@ -6,5 +6,6 @@ export interface PostDoc {
   name: string;
   uid: string;
   id: string;
+  commentsAmount: number;
   createdAt: Timestamp;
 }

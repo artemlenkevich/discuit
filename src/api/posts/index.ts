@@ -12,7 +12,6 @@ import {
 } from 'firebase/firestore';
 
 import { db } from '@/lib/firebase';
-import { Post } from '@/store/postsSlice';
 import { PostDoc } from '@/types/models/posts/PostDoc';
 
 interface AddPostParams {
@@ -25,6 +24,10 @@ interface AddPostParams {
 interface GetPostsParams {
   lastDocParam: unknown;
   limitNumber: number;
+}
+
+export interface Post extends Omit<PostDoc, 'createdAt'> {
+  createdAt: number;
 }
 
 interface GetPostParams {

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Timestamp } from 'firebase/firestore';
 
-import { addPost, getPost, getPosts } from '@/api/posts';
+import { Post, addPost, getPost, getPosts } from '@/api/posts';
 import { NotAuthorized } from '@/errors/not-authorized';
 import { showErrorNotification } from '@/store/notificationsSlice';
 import { AppDispatch, RootState } from '@/types/redux';
@@ -9,15 +9,6 @@ import { AppDispatch, RootState } from '@/types/redux';
 interface AddPostParams {
   title: string;
   text: string;
-}
-
-export interface Post {
-  title: string;
-  text: string;
-  name: string;
-  uid: string;
-  createdAt: number;
-  id: string;
 }
 
 type PostsState = {
