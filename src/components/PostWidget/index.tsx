@@ -37,7 +37,7 @@ export const PostWidget: React.FC<PostWidgetProps> = ({
         </div>
       </div>
       <div className={styles.comments}>
-        <Button startIcon={<PostsIcon />} variant='text'>
+        <Button className={styles.commentsBtn} startIcon={<PostsIcon />} variant='text'>
           {commentsAmount} comments
         </Button>
       </div>
