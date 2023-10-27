@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { Tile } from '@/components/ui/Tile';
-import { useAppDispatch } from '@/hooks/store';
+import { useAppDispatch } from '@/store/hooks';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { logOutUserThunk } from '@/store/userSlice';
 

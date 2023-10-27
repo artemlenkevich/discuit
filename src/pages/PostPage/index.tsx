@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Post } from '@/components/Post';
-import { useAppDispatch, useAppSelector } from '@/hooks/store';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getPostThunk, selectPost } from '@/store/postsSlice';
 
 import styles from './PostPage.module.scss';

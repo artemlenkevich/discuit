@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { Tile } from '@/components/ui/Tile';
-import { useAppDispatch, useAppSelector } from '@/hooks/store';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   clearComments,
   getCommentsThunk,

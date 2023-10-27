@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { PostWidget } from '@/components/PostWidget';
 import { SelectBar } from '@/components/SelectBar';
-import { useAppDispatch, useAppSelector } from '@/hooks/store';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { clearPosts, getPostsThunk, selectPosts } from '@/store/postsSlice';
 

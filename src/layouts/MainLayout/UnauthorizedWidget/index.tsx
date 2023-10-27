@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/Button';
-import { useAppDispatch } from '@/hooks/store';
+import { useAppDispatch } from '@/store/hooks';
 import { openModal } from '@/store/modalsSlice';
 import { Modals } from '@/types/modals';
 

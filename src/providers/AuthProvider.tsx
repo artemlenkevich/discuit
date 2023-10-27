@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactElement, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@/hooks/store';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectIsInitialized } from '@/store/systemSlice';
 import { subscribeAuthStateChanges } from '@/store/userSlice';
 

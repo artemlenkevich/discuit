@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/Button';
 import { CloseButton } from '@/components/ui/CloseButton';
 import { Textarea } from '@/components/ui/Textarea/indext';
 import { Tile } from '@/components/ui/Tile';
-import { useAppDispatch } from '@/hooks/store';
 import { validationConfig } from '@/lib/validationConfig';
+import { useAppDispatch } from '@/store/hooks';
 import { addPostThunk } from '@/store/postsSlice';
 
 import styles from './NewPostPage.module.scss';

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 
 import { Button } from '@/components/ui/Button';
-import { useAppDispatch, useAppSelector } from '@/hooks/store';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { validationConfig } from '@/lib/validationConfig';
 import { closeModal, openModal, selectModals } from '@/store/modalsSlice';
 import { logInUserWithEmailAndPasswordThunk } from '@/store/userSlice';

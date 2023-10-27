@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Breakpoints } from '@/constants/breakpoints';
-import { useAppSelector } from '@/hooks/store';
+import { useAppSelector } from '@/store/hooks';
 import useScreenSize from '@/hooks/useScreenSize';
 import { selectIsAuthenticated } from '@/store/userSlice';
 
