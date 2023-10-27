@@ -1,6 +1,6 @@
-import styles from './NotFoundRoute.module.scss';
+import styles from './NotFoundPage.module.scss';
 
-export const NotFoundRoute: React.FC = () => {
+export const NotFoundPage: React.FC = () => {
   return (
     <div className={styles.root}>
       <h1 className={styles.title}>404 Page not found</h1>

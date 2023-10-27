@@ -10,7 +10,7 @@ import { useAppDispatch } from '@/hooks/store';
 import { validationConfig } from '@/lib/validationConfig';
 import { addPostThunk } from '@/store/postsSlice';
 
-import styles from './NewPostRoute.module.scss';
+import styles from './NewPostPage.module.scss';
 
 interface PostValues {
   title: string;
@@ -29,7 +29,7 @@ const validationSchema = Yup.object({
   text: postText,
 });
 
-export const NewPostRoute: React.FC = () => {
+export const NewPostPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -54,7 +54,7 @@ export const NewPostRoute: React.FC = () => {
         </div>
         <Formik
           initialValues={initialValues}
-          // validationSchema={validationSchema}
+          validationSchema={validationSchema}
           onSubmit={onPostSubmit}
         >
           <Form className={styles.postEditor}>

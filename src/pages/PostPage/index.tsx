@@ -5,9 +5,9 @@ import { Post } from '@/components/Post';
 import { useAppDispatch, useAppSelector } from '@/hooks/store';
 import { getPostThunk, selectPost } from '@/store/postsSlice';
 
-import styles from './PostRoute.module.scss';
+import styles from './PostPage.module.scss';
 
-export const PostRoute: React.FC = () => {
+export const PostPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const post = useAppSelector(selectPost);
   const { postId } = useParams();

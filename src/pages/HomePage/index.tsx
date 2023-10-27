@@ -6,9 +6,9 @@ import { useAppDispatch, useAppSelector } from '@/hooks/store';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { clearPosts, getPostsThunk, selectPosts } from '@/store/postsSlice';
 
-import styles from './HomeRoute.module.scss';
+import styles from './HomePage.module.scss';
 
-export const HomeRoute: React.FC = () => {
+export const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const posts = useAppSelector(selectPosts);
   const ref = useRef<HTMLDivElement | null>(null);

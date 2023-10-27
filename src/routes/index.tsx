@@ -7,24 +7,23 @@ import {
 
 import { routes } from '@/constants/routes';
 import { FeedLayout, MainLayout } from '@/layouts';
-
-import { HomeRoute } from './HomeRoute';
-import { NewPostRoute } from './NewPostRoute';
-import { NotFoundRoute } from './NotFoundRoute';
-import { PostRoute } from './PostRoute';
+import { HomePage } from '@/pages/HomePage';
+import { NewPostPage } from '@/pages/NewPostPage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
+import { PostPage } from '@/pages/PostPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<MainLayout />}>
         <Route element={<FeedLayout />}>
-          <Route path={routes.root} element={<HomeRoute />}></Route>
+          <Route path={routes.root} element={<HomePage />}></Route>
           <Route path={routes.subscriptions} element={<div>subscriptions</div>}></Route>
-          <Route path={routes.post} element={<PostRoute />}></Route>
+          <Route path={routes.post} element={<PostPage />}></Route>
         </Route>
       </Route>
-      <Route path='*' element={<NotFoundRoute />}></Route>
-      <Route path={routes.newPost} element={<NewPostRoute />}></Route>
+      <Route path='*' element={<NotFoundPage />}></Route>
+      <Route path={routes.newPost} element={<NewPostPage />}></Route>
     </>
   )
 );
