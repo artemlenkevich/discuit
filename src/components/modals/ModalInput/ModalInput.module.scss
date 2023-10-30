@@ -1,7 +1,0 @@
-@use 'src/scss/variables.scss' as v;
-
-.errorMessage {
-  color: v.$color-red;
-  font-size: v.$fs-normal;
-  font-family: v.$font;
-}

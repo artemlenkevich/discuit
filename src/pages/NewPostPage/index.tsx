@@ -7,6 +7,7 @@ import { CloseButton } from '@/components/ui/CloseButton';
 import { Textarea } from '@/components/ui/Textarea/indext';
 import { Tile } from '@/components/ui/Tile';
 import { useAppDispatch } from '@/store/hooks';
+import { showWarnNotification } from '@/store/notificationsSlice';
 import { addPostThunk } from '@/store/postsSlice';
 
 import styles from './NewPostPage.module.scss';
@@ -22,7 +23,7 @@ const initialValues: PostValues = {
 };
 
 const validationSchema = Yup.object({
-  text: Yup.string().min(20, 'Must be 20 characters or more').required('Required'),
+  text: Yup.string().min(20, 'Must be 10 characters or more').required('Required'),
   title: Yup.string().min(6, 'Must be 6 characters or more').required('Required'),
 });
 
@@ -34,12 +35,16 @@ export const NewPostPage: React.FC = () => {
     navigate('/');
   };
 
-  const onPostSubmit = ({ title, text }: PostValues, helpers: FormikHelpers<PostValues>) => {
-    dispatch(addPostThunk({ title, text }))
-      .unwrap()
-      .then(() => {
-        helpers.resetForm();
-      });
+  const onPostSubmit = async (fields: PostValues, helpers: FormikHelpers<PostValues>) => {
+    try {
+      const { title, text } = await validationSchema.validate(fields);
+      await dispatch(addPostThunk({ title, text })).unwrap();
+      helpers.resetForm();
+    } catch (e) {
+      if (e instanceof Yup.ValidationError) {
+        dispatch(showWarnNotification({ name: e.name, message: e.message }));
+      }
+    }
   };
 
   return (
@@ -51,8 +56,10 @@ export const NewPostPage: React.FC = () => {
         </div>
         <Formik
           initialValues={initialValues}
-          validationSchema={validationSchema}
+          // validationSchema={validationSchema}
           onSubmit={onPostSubmit}
+          // validateOnChange={false}
+          // validateOnBlur={false}
         >
           <Form className={styles.postEditor}>
             <Tile>

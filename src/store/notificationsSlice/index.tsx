@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 
-import { ErrorNotification } from '@/components/ErrorNotification';
+import { Notification } from '@/components/Notification';
 import { AppDispatch, RootState } from '@/store';
 import { normalizeError } from '@/utils/normalize-error';
 
@@ -13,5 +13,13 @@ export const showErrorNotification = createAsyncThunk<
 >('notifications/showErrorNotification', async (e) => {
   console.error(e);
   const { message, name } = normalizeError(e);
-  toast.error(() => <ErrorNotification name={name} message={message} />);
+  toast.error(() => <Notification name={name} message={message} />);
+});
+
+export const showWarnNotification = createAsyncThunk<
+  void,
+  { name: string; message: string },
+  { dispatch: AppDispatch; state: RootState }
+>('notifications/showWarnNotification', async ({ name, message }) => {
+  toast(() => <Notification name={name} message={message} />);
 });
