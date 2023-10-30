@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/Button';
 import { CloseButton } from '@/components/ui/CloseButton';
 import { Textarea } from '@/components/ui/Textarea/indext';
 import { Tile } from '@/components/ui/Tile';
-import { validationConfig } from '@/lib/validationConfig';
 import { useAppDispatch } from '@/store/hooks';
 import { addPostThunk } from '@/store/postsSlice';
 
@@ -22,11 +21,9 @@ const initialValues: PostValues = {
   text: '',
 };
 
-const { postTitle, postText } = validationConfig;
-
 const validationSchema = Yup.object({
-  title: postTitle,
-  text: postText,
+  text: Yup.string().min(20, 'Must be 20 characters or more').required('Required'),
+  title: Yup.string().min(6, 'Must be 6 characters or more').required('Required'),
 });
 
 export const NewPostPage: React.FC = () => {

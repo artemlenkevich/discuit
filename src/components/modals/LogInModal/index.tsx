@@ -4,12 +4,12 @@ import * as Yup from 'yup';
 
 import { Button } from '@/components/ui/Button';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { validationConfig } from '@/lib/validationConfig';
 import { closeModal, openModal, selectModals } from '@/store/modalsSlice';
 import { logInUserWithEmailAndPasswordThunk } from '@/store/userSlice';
 import { Modals } from '@/types/modals';
 
 import { BaseModal } from '../BaseModal';
+import { modalsValidationConfig } from '../lib/modalsValidationConfig';
 import { ModalInput } from '../ModalInput';
 
 import styles from './LogInModal.module.scss';
@@ -24,7 +24,7 @@ const initialValues: FormValues = {
   password: '',
 };
 
-const { email, password } = validationConfig;
+const { email, password } = modalsValidationConfig;
 
 const validationSchema = Yup.object({
   email,

@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import { Button } from '@/components/ui/Button';
 import { Textarea } from '@/components/ui/Textarea/indext';
 import { useAppDispatch } from '@/store/hooks';
-import { validationConfig } from '@/lib/validationConfig';
 import { addCommentThunk, getCommentsThunk } from '@/store/commentsSlice';
 
 import styles from './NewComment.module.scss';
@@ -17,7 +16,10 @@ interface NewCommentProps {
 }
 
 const validationSchema = Yup.object({
-  text: validationConfig.comment,
+  text: Yup.string()
+    .max(300, 'Must be 300 characters or less')
+    .min(3, 'Must be 3 characters or more')
+    .required('Required'),
 });
 
 export const NewComment: React.FC<NewCommentProps> = ({ postId, parentId = null, onCancel }) => {
