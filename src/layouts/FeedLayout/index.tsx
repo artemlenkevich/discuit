@@ -3,7 +3,6 @@ import { Outlet, useMatch } from 'react-router-dom';
 
 import { CreatePostWidget } from '@/components/CreatePostWidget';
 import { Navigation } from '@/components/Navigation';
-import { Breakpoints } from '@/constants/breakpoints';
 import { routes } from '@/constants/routes';
 import useScreenSize from '@/hooks/useScreenSize';
 
@@ -11,9 +10,9 @@ import styles from './FeedLayout.module.scss';
 
 export const FeedLayout: React.FC = () => {
   const isPostRoute = useMatch(routes.post);
-  const { width } = useScreenSize();
-  const showLeftBar = width > Breakpoints.xl && !isPostRoute;
-  const showRightBar = width > Breakpoints.lg;
+  const screen = useScreenSize('>');
+
+  const showLeftBar = screen.xl && !isPostRoute;
 
   return (
     <div className={styles.layout}>
@@ -26,12 +25,12 @@ export const FeedLayout: React.FC = () => {
         <main
           className={cn(styles.mainContent, {
             [styles.disableLeftBar]: !showLeftBar,
-            [styles.disableRightBar]: !showRightBar,
+            [styles.disableRightBar]: !screen.lg,
           })}
         >
           <Outlet />
         </main>
-        {showRightBar && (
+        {screen.lg && (
           <div className={styles.rightSidebar}>
             <CreatePostWidget />
           </div>

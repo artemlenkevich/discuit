@@ -1,17 +1,68 @@
 import { debounce } from 'lodash';
 import { useState, useEffect } from 'react';
 
-const useScreenSize = () => {
-  const [screenSize, setScreenSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+import { Breakpoints } from '@/constants/breakpoints';
+
+type BreakpointsState = {
+  [key in keyof typeof Breakpoints]: boolean;
+};
+
+interface SizesState {
+  w: number;
+  h: number;
+}
+
+type Sign = '<' | '>';
+
+const calculateBreakpoints = (screenWidth: number, sign: Sign) => {
+  const screenSizes = {} as BreakpointsState;
+
+  for (const key in Breakpoints) {
+    //Iterate only non-number keys
+    if (isNaN(+key)) {
+      switch (sign) {
+        case '<':
+          screenSizes[key] = screenWidth < +Breakpoints[key];
+          break;
+        case '>':
+          screenSizes[key] = screenWidth > +Breakpoints[key];
+          break;
+      }
+    }
+  }
+
+  return screenSizes;
+};
+
+const initializeState = (sign: Sign) => () => {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const screenSizes = {
+    w: screenWidth,
+    h: screenHeight,
+  };
+  const screenBreakpoints = calculateBreakpoints(screenWidth, sign);
+
+  return { ...screenSizes, ...screenBreakpoints };
+};
+
+// A sign argument determines a sign for a Breakpoints match calculation;
+const useScreenSize = (sign: Sign = '<') => {
+  const [screenSize, setScreenSize] = useState<BreakpointsState & SizesState>(
+    initializeState(sign)
+  );
 
   useEffect(() => {
     const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      const screenBreakpoints = calculateBreakpoints(screenWidth, sign);
+
       setScreenSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
+        w: screenWidth,
+        h: screenHeight,
+        ...screenBreakpoints,
       });
     };
     const debouncedHandleResie = debounce(handleResize, 100);
