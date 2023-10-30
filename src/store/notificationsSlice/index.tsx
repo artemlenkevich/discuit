@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 
 import { ErrorNotification } from '@/components/ErrorNotification';
-import { AppDispatch, RootState } from '@/types/redux';
+import { AppDispatch, RootState } from '@/store';
 import { normalizeError } from '@/utils/normalize-error';
 
 /* A distinct slice is used to inversion a dependency(react-toasts library) */

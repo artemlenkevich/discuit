@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { Tile } from '@/components/ui/Tile';
-import { useAppDispatch } from '@/store/hooks';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useAppDispatch } from '@/store/hooks';
 import { logOutUserThunk } from '@/store/userSlice';
 
 import styles from './ProfileWidget.module.scss';

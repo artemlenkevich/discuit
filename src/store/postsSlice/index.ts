@@ -3,8 +3,8 @@ import { Timestamp } from 'firebase/firestore';
 
 import { Post, addPost, getPost, getPosts } from '@/api/posts';
 import { NotAuthorized } from '@/errors/not-authorized';
+import { AppDispatch, RootState } from '@/store';
 import { showErrorNotification } from '@/store/notificationsSlice';
-import { AppDispatch, RootState } from '@/types/redux';
 
 interface AddPostParams {
   title: string;

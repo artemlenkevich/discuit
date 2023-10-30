@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 
 import { PostWidget } from '@/components/PostWidget';
 import { SelectBar } from '@/components/SelectBar';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearPosts, getPostsThunk, selectPosts } from '@/store/postsSlice';
 
 import styles from './HomePage.module.scss';

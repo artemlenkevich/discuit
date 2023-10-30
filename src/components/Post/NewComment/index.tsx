@@ -4,8 +4,8 @@ import * as Yup from 'yup';
 
 import { Button } from '@/components/ui/Button';
 import { Textarea } from '@/components/ui/Textarea/indext';
-import { useAppDispatch } from '@/store/hooks';
 import { addCommentThunk, getCommentsThunk } from '@/store/commentsSlice';
+import { useAppDispatch } from '@/store/hooks';
 
 import styles from './NewComment.module.scss';
 

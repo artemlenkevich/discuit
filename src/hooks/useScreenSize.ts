@@ -73,7 +73,7 @@ const useScreenSize = (sign: Sign = '<') => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [sign]);
 
   return screenSize;
 };

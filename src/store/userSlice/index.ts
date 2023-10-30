@@ -10,8 +10,8 @@ import {
   updateUserProfile,
 } from '@/api/user';
 import { auth } from '@/lib/firebase';
+import { AppDispatch, RootState } from '@/store';
 import { showErrorNotification } from '@/store/notificationsSlice';
-import { AppDispatch, RootState } from '@/types/redux';
 import { NormalizedError, normalizeError } from '@/utils/normalize-error';
 import { errorCodeToMessage, isUserInputError } from '@/utils/user-input-error';
 

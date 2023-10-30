@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
 import { Tile } from '@/components/ui/Tile';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   clearComments,
   getCommentsThunk,
   selectComments,
   selectCommentsLength,
 } from '@/store/commentsSlice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { timestampToTimeAgo } from '@/utils/time/timestampToTimeAgo';
 
 import { Comment } from './Comment';

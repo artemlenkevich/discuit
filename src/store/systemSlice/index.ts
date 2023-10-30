@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { RootState } from '@/types/redux';
+import { RootState } from '@/store';
 
 interface SystemState {
   isInitialized: boolean;

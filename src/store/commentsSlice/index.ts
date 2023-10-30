@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { Comment, addComment, getComments } from '@/api/comments';
 import { NotAuthorized } from '@/errors/not-authorized';
+import { AppDispatch, RootState } from '@/store';
 import { buildCommentTree } from '@/store/commentsSlice/utils/buildCommentTree';
 import { showErrorNotification } from '@/store/notificationsSlice';
 import { selectUser } from '@/store/userSlice';
-import { AppDispatch, RootState } from '@/types/redux';
 
 export interface CommentNode extends Comment {
   replies: CommentNode[];
