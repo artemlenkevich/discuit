@@ -54,13 +54,7 @@ export const NewPostPage: React.FC = () => {
           <h1 className={styles.header}>Create a post</h1>
           <CloseButton onClick={onCloseClick} />
         </div>
-        <Formik
-          initialValues={initialValues}
-          // validationSchema={validationSchema}
-          onSubmit={onPostSubmit}
-          // validateOnChange={false}
-          // validateOnBlur={false}
-        >
+        <Formik initialValues={initialValues} onSubmit={onPostSubmit}>
           <Form className={styles.postEditor}>
             <Tile>
               <div className={styles.post}>
